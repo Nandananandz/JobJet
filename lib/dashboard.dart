@@ -25,6 +25,7 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          SizedBox(height:6),
             InkWell(
               onTap: () {
                 Get.to(()=>HomeViewScreen());
