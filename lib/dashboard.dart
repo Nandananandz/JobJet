@@ -14,6 +14,7 @@ import 'package:jobjet/Screens/UserProfile/components/CompleteProfileCard.dart';
 import 'package:jobjet/Screens/UserProfile/components/ProfileViewScreen.dart';
 import 'package:jobjet/Screens/UserProfile/components/UserDetailCard.dart';
 import 'package:jobjet/Screens/Views/ViewScreen.dart';
+import 'package:jobjet/Screens/Views/components/Searchbar.dart';
 import 'package:jobjet/Screens/Views/components/ViewDetailCard.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -131,7 +132,7 @@ class DashboardScreen extends StatelessWidget {
            
            InkWell(
             onTap: () {
-                Get.to(()=>SearchBar());
+                Get.to(()=>SearchScreen());
               },
              child: Text("searchbar",style: TextStyle(color: Colors.red),
                      ),
