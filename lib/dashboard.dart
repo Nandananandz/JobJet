@@ -21,19 +21,11 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-              InkWell(
-                onTap: () {
-                  Get.to(()=>HomeViewScreen());
-                },
-                child: Text("homeViewscreen",style: TextStyle(color: Colors.red),
-                        ),
-              ),
-            SizedBox(height: 2,),
-             InkWell(
+    return Scaffold(
+      body: Column(
+        children: [
+          SizedBox(height:6),
+            InkWell(
               onTap: () {
                   Get.to(()=>HomeScreen());
                 },
@@ -158,7 +150,7 @@ class DashboardScreen extends StatelessWidget {
           ],
         ),
       
-      ),
-    );
+      );
+    
   }
 }
