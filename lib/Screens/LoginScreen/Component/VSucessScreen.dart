@@ -17,12 +17,12 @@ class VSucessScreen extends StatelessWidget {
             children: [
               Container(
                 height:15.41.h,
-                width: 25.47.w,
-                margin: EdgeInsets.only(left: 33.69.w,top:25.6.h),
+                width: 28.47.w,
+                margin: EdgeInsets.only(left: 35.69.w,top:23.6.h),
                 child: Image.asset("assets/sucees.png"),
               ),
               SizedBox(
-                height: 3.78.h,
+                height: 6.8.h,
               ),
               Container(
                 height: 4.45.h,
@@ -71,7 +71,7 @@ class VSucessScreen extends StatelessWidget {
               Container(
                 height: 2.69.h,
                 width:61.60.w ,
-                margin: EdgeInsets.only(left:37.w),
+                margin: EdgeInsets.only(left:36.2.w),
                 child: Text("adipiscing elit.",
                 style: GoogleFonts.inter(
                   fontSize: 11.66.sp,

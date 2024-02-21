@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
                   height: 6.42.h,
                   width: 13.28.w,
                  // alignment: Alignment.topRight,
-                  margin: EdgeInsets.only(top:18.69.h,left: 26.19.w ),
+                  margin: EdgeInsets.only(top:18.69.h,left: 24.19.w ),
                   child: Image.asset("assets/logo.png"),
                   
                 ),
