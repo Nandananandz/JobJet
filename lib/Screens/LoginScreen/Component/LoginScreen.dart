@@ -85,11 +85,24 @@ class LoginScreen extends StatelessWidget {
             ),
             
             Container(
-              height: 7.h,
+             // height: 3.5.h,
               width:59.90.w ,
               margin: EdgeInsets.only(top:.89.h,left:20.73.w),
               child: Text(
-                "You will receive a 4 digit code   to verify next ",
+                "You will receive a 4 digit code to",
+                style: GoogleFonts.poppins(
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff717784),
+                ),
+              ),
+            ),
+             Container(
+              height: 7.h,
+              width:59.90.w ,
+              margin: EdgeInsets.only(left:36.73.w),
+              child: Text(
+                " verify next ",
                 style: GoogleFonts.poppins(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
