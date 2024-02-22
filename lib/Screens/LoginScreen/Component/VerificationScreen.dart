@@ -22,7 +22,7 @@ class VerificationScreen extends StatelessWidget {
                   height: 6.42.h,
                   width: 13.28.w,
                 
-                  margin: EdgeInsets.only(top:18.69.h,left: 24.19.w ),
+                  margin: EdgeInsets.only(top:18.69.h,left: 25.5.w ),
                   child: Image.asset("assets/logo.png"),
                   
                 ),
@@ -67,11 +67,11 @@ class VerificationScreen extends StatelessWidget {
             Container(
               //height: 3.8.h,
               //width:79.46.w ,
-              margin: EdgeInsets.only(top:5.3.h,left:16.w,right: 9.83.w),
+              margin: EdgeInsets.only(top:5.3.h,left:15.6.w,right: 9.83.w),
               child: Text(
                 "Enter your passcode",
                 style: GoogleFonts.poppins(
-                  fontSize: 18.sp,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
                   color: Color(0xff022150),
                 ),
@@ -79,13 +79,26 @@ class VerificationScreen extends StatelessWidget {
             ),
             
             Container(
-              height: 7.h,
-              width:59.90.w ,
-              margin: EdgeInsets.only(top:.5.h,left:20.73.w,right:20.w),
+              //height: 3.h,
+              //width:59.90.w ,
+              margin: EdgeInsets.only(top:1.5.h,left:15.73.w),
               child: Text(
-                "Please enter the 4 digit verification code sent to +971 5815 8985 69",
+                "Please enter the 4 digit verification ",
                 style: GoogleFonts.poppins(
-                  fontSize: 9.sp,
+                  fontSize: 11.66.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff717784),
+                ),
+              ),
+            ),
+            Container(
+              //height: 7.h,
+             // width:59.90.w ,
+              margin: EdgeInsets.only(left:18.73.w,top:.9.h),
+              child: Text(
+                "code sent to +971 5815 8985 69",
+                style: GoogleFonts.poppins(
+                  fontSize: 11.66.sp,
                   fontWeight: FontWeight.w500,
                   color: Color(0xff717784),
                 ),
@@ -131,7 +144,7 @@ class VerificationScreen extends StatelessWidget {
                  Container(
                           //height: 5.39.h,
                           //width: 26.32.w,
-                          margin: EdgeInsets.only(top:2.5.h,left:28.80.w),
+                          margin: EdgeInsets.only(top:2.8.h,left:28.80.w),
                           child: Text("Code expires in : ",
                           style: 
                             GoogleFonts.inter(
@@ -145,7 +158,7 @@ class VerificationScreen extends StatelessWidget {
                         ),
                      Container(
                           
-                          margin: EdgeInsets.only(top:2.24.h,),
+                          margin: EdgeInsets.only(top:2.8.h,),
                           child: Text(" 00 : 56 ",
                           style: 
                             GoogleFonts.nunitoSans(
@@ -164,7 +177,7 @@ class VerificationScreen extends StatelessWidget {
                 children: [
                   Container(
                               
-                              margin: EdgeInsets.only(top:2.24.h,left:22.46.w),
+                              margin: EdgeInsets.only(top:2.2.h,left:21.46.w),
                               child: Text("Didn’t receive code?",
                               style: 
                                 GoogleFonts.inter(
@@ -179,7 +192,7 @@ class VerificationScreen extends StatelessWidget {
                               ),
                               Container(
                               
-                              margin: EdgeInsets.only(top:2.24.h),
+                              margin: EdgeInsets.only(top:2.2.h),
                               child: Text(" Resend Code",
                               style: 
                                 GoogleFonts.inter(
@@ -195,7 +208,7 @@ class VerificationScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-              height:3.37.h ,
+              height:4.7.h ,
             ),
             InkWell(
               onTap: (){
@@ -207,7 +220,7 @@ class VerificationScreen extends StatelessWidget {
               child: Padding(
                 padding:  EdgeInsets.only(left: 14.36.w),
                 child: Container(
-                  height: 5.5.h,
+                  height: 6.5.h,
                   width:68.98.w,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
