@@ -13,12 +13,13 @@ class SearchScreen extends StatelessWidget {
         body: Center(
           child: Container(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+
                     Container(
+                      alignment: Alignment.center,
                       height: 4.60.h,
                       width: 9.90.w,
                       decoration: BoxDecoration(
@@ -62,6 +63,9 @@ class SearchScreen extends StatelessWidget {
                     )
                   ],
                 ),
+
+
+
                 //sorting code ivde thott
                 Row(
                   children: [

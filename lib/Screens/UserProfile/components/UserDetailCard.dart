@@ -49,19 +49,19 @@ class UserDetailScreen extends StatelessWidget {
               _textfield('User name'),
         
         
-              _textbox('Job type'),
+              _textbox('Job Type'),
               
         
               _textbox('Total years of experience'),
         
              
-              _textbox('Job category'),
+              _textbox('Job Category'),
         
              
-              _textbox('Current job time'),
+              _textbox('Current Job Tittle'),
         
              
-              _textfield('Resume link'),
+              _textfield('Resume Link'),
               
               
               SizedBox(height: 4.49.h),
