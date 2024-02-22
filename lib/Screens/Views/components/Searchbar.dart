@@ -15,7 +15,7 @@ class SearchScreen extends StatelessWidget {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
                     Container(
@@ -23,17 +23,16 @@ class SearchScreen extends StatelessWidget {
                       height: 4.60.h,
                       width: 9.90.w,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(10),
                           color: Color(0xFFE8ECFF)),
-                      child: Icon(Icons.menu_outlined,
+                      child: Icon(
+                        Icons.menu,
                         color: Color(0xFF141F5A),
                       ),
                     ),
-
-                    SizedBox(width: 4.10.w,),
-
-
-                    //Search bar
+                    SizedBox(
+                      width: 4.10.w,
+                    ),
                     Container(
                       height: 4.49.h,
                       width: 63.28.w,
@@ -55,9 +54,9 @@ class SearchScreen extends StatelessWidget {
                                 color: Color(0xFF696969))),
                       ),
                     ),
-
-                    SizedBox(width: 4.83.w,),
-                    //notification
+                    SizedBox(
+                      width: 4.83.w,
+                    ),
                     Icon(
                       Icons.notifications_outlined,
                       color: Color(0xFF121B54),
