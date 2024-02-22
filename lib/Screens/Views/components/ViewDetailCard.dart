@@ -28,14 +28,13 @@ class ViewDetailCard extends StatelessWidget {
                     height: 4.44.h,
                     width: 10.38.w,
                     decoration: BoxDecoration(
-                      color: Color(0xFF121B54),
+                      color:Color(0xFF121B54),
                       borderRadius: BorderRadius.circular(5)
                     ),
                     child: Image.asset('assets/doctor.png',
                     height: 3.18.h,
                     width: 6.85.w,
-                    fit: BoxFit.contain,
-                   ),
+                    ),
                   ),
                   
                   SizedBox(width: 2.89.w,),
