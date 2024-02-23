@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jobjet/Screens/Views/components/Searchbar.dart';
+
 
 class ViewScreen extends StatelessWidget {
   const ViewScreen({super.key});
@@ -9,6 +11,7 @@ class ViewScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
+            SearchScreen()
            
           ],
         ),
