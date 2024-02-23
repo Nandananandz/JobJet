@@ -25,10 +25,11 @@ class VSucessScreen extends StatelessWidget {
                 height: 6.8.h,
               ),
               Container(
-                height: 4.45.h,
+                //height: 4.45.h,
                 //width:72.60.w ,
-                margin: EdgeInsets.only(left:13.w),
-                child: Text("Phone number Verified  ",
+                margin: EdgeInsets.only(left:12.w),
+                child: Text("Phone number Verified \n successfully ",
+                textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   fontSize: 20.sp,
                   fontWeight:FontWeight.w600,
@@ -38,28 +39,16 @@ class VSucessScreen extends StatelessWidget {
                 ),
                 
               ),
-              Container(
-                //height: 4.45..h,
-                width:72.60.w ,
-                margin: EdgeInsets.only(left:25.w),
-                child: Text("successfully",
-                style: GoogleFonts.inter(
-                  fontSize: 20.sp,
-                  fontWeight:FontWeight.w600,
-                  color: Color.fromRGBO(2, 33, 80, 1),
-                ),
-              
-                ),
-                
-              ),
+
                SizedBox(
                 height: 1.4.h,
               ),
               Container(
-                height: 2.69.h,
+                //height: 2.69.h,
                 //width:61.60.w ,
                 margin: EdgeInsets.only(left:12.w),
-                child: Text("Lorem ipsum dolor sit amet, consectetur ",
+                child: Text("Lorem ipsum dolor sit amet, consectetur \n adipiscing elit.",
+                textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   fontSize: 11.66.sp,
                   fontWeight:FontWeight.w400,
@@ -68,18 +57,7 @@ class VSucessScreen extends StatelessWidget {
                 ),
               ),
 
-              Container(
-                height: 2.69.h,
-                width:61.60.w ,
-                margin: EdgeInsets.only(left:36.2.w),
-                child: Text("adipiscing elit.",
-                style: GoogleFonts.inter(
-                  fontSize: 11.66.sp,
-                  fontWeight:FontWeight.w400,
-                  color: Color.fromRGBO(121, 134, 159, 1),
-                ),
-                ),
-              ),
+
             ],
           ),
       
