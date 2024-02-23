@@ -32,6 +32,14 @@ class OnboardCardScreen extends StatelessWidget {
                 child: Text("\$0.00",style: GoogleFonts.poppins(fontSize: 33, 
                  fontWeight: FontWeight.w700 ,
                     color:Color.fromRGBO(255, 255, 255, 1))),
+                ),
+                
+                SizedBox(
+                  height: 30.85.h,
+                width: 20.11.w,
+                child: Text("For 2 days",style: GoogleFonts.poppins(fontSize: 15, 
+                 fontWeight: FontWeight.w400 ,
+                    color:Color.fromRGBO(255, 255, 255, 1))),
                 )
               ],
             ),
