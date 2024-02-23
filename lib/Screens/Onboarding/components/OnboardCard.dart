@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 class OnboardCardScreen extends StatelessWidget {
@@ -18,14 +19,20 @@ class OnboardCardScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(51.68),
                   child: Container(
-                    height: 2.247.h,
-                    width: 27.29.w,
+                    //height: 3.247.h,
+                   //width: 29.29.w,
                     child: Text("Free Trial",
-                    style: TextStyle(fontSize: 24,
+                    style: GoogleFonts.poppins
+                    (fontSize: 24,fontWeight: FontWeight.w700 ,
                     color:Color.fromRGBO(255, 255, 255, 1)
 )),),
                   ),
-                
+                SizedBox(height: 40.930.h,
+                width: 25.36.w,
+                child: Text("\$0.00",style: GoogleFonts.poppins(fontSize: 33, 
+                 fontWeight: FontWeight.w700 ,
+                    color:Color.fromRGBO(255, 255, 255, 1))),
+                )
               ],
             ),
           ),
