@@ -33,8 +33,7 @@ class UserDetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-        
-        
+              
               SizedBox(height: 1.23.h),
               Text('Complete your Profile',
               style: GoogleFonts.poppins(

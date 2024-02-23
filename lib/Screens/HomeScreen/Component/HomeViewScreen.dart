@@ -17,7 +17,7 @@ class HomeViewScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(height: 7.86.h,),
-          Image.asset("assets/pic.png"),
+          //Image.asset("assets/discover.png"),
           SizedBox(height: 3.37.h,),
           Text("Find Your Dream\n              Job",
           style: GoogleFonts.poppins(
