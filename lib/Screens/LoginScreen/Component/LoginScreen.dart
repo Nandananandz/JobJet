@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
                   height: 6.42.h,
                   width: 13.28.w,
                  // alignment: Alignment.topRight,
-                  margin: EdgeInsets.only(top:18.69.h,left: 26.19.w ),
+                  margin: EdgeInsets.only(top:18.69.h,left: 24.19.w ),
                   child: Image.asset("assets/logo.png"),
                   
                 ),
@@ -73,7 +73,7 @@ class LoginScreen extends StatelessWidget {
             Container(
               //height: 3.8.h,
               //width:79.46.w ,
-              margin: EdgeInsets.only(top:7.44.h,left:9.83.w),
+              margin: EdgeInsets.only(top:7.44.h,left:8.83.w),
               child: Text(
                 "Enter your mobile number",
                 style: GoogleFonts.poppins(
@@ -85,11 +85,13 @@ class LoginScreen extends StatelessWidget {
             ),
             
             Container(
-              height: 7.h,
+             // height: 3.5.h,
               width:59.90.w ,
-              margin: EdgeInsets.only(top:.89.h,left:20.73.w),
+              margin: EdgeInsets.only(top:.89.h,left:19.73.w),
+              
               child: Text(
-                "You will receive a 4 digit code   to verify next ",
+                "You will receive a 4 digit code to \n  verify next",
+                textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
@@ -97,13 +99,14 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
+
              
            SizedBox(
               height:2.h ,
             ),
             
              Container(
-              margin: EdgeInsets.only(left:11.36.w ),
+              margin: EdgeInsets.only(left:10.36.w ),
                child: SizedBox(
                 height:6.5.h ,
                 width: 78.98.w,
@@ -116,7 +119,7 @@ class LoginScreen extends StatelessWidget {
                   prefixIcon: Padding(
                   padding:  EdgeInsets.all(15.0),
                   child: Image.asset(
-                    'assets/country_logo.png',
+                    'assets/country.png',
                     width: 6.5.w,
                     height: 2.24.h,
                     
@@ -159,7 +162,7 @@ class LoginScreen extends StatelessWidget {
                 );
               },
               child: Padding(
-                padding:  EdgeInsets.only(left: 11.36.w),
+                padding:  EdgeInsets.only(left: 10.36.w),
                 child: Container(
                   height: 6.29.h,
                   width: 78.98.w,

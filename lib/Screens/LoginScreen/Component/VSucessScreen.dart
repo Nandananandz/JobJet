@@ -13,22 +13,23 @@ class VSucessScreen extends StatelessWidget {
         
          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+         // mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 height:15.41.h,
-                width: 25.47.w,
-                margin: EdgeInsets.only(left: 33.69.w,top:30.6.h),
+                width: 28.47.w,
+                margin: EdgeInsets.only(left: 35.69.w,top:23.6.h),
                 child: Image.asset("assets/sucees.png"),
               ),
               SizedBox(
-                height: 5.78.h,
+                height: 6.8.h,
               ),
               Container(
-                height: 8.9.h,
-                width:72.60.w ,
-                margin: EdgeInsets.only(left:15.w),
-                child: Text("Phone number Verified successfully ",
+                //height: 4.45.h,
+                //width:72.60.w ,
+                margin: EdgeInsets.only(left:12.w),
+                child: Text("Phone number Verified \n successfully ",
+                textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   fontSize: 20.sp,
                   fontWeight:FontWeight.w600,
@@ -38,14 +39,16 @@ class VSucessScreen extends StatelessWidget {
                 ),
                 
               ),
+
                SizedBox(
                 height: 1.4.h,
               ),
               Container(
-                height: 5.39.h,
-                width:61.60.w ,
-                margin: EdgeInsets.only(left:15.w),
-                child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+                //height: 2.69.h,
+                //width:61.60.w ,
+                margin: EdgeInsets.only(left:12.w),
+                child: Text("Lorem ipsum dolor sit amet, consectetur \n adipiscing elit.",
+                textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   fontSize: 11.66.sp,
                   fontWeight:FontWeight.w400,
@@ -53,7 +56,8 @@ class VSucessScreen extends StatelessWidget {
                 ),
                 ),
               ),
-              
+
+
             ],
           ),
       
