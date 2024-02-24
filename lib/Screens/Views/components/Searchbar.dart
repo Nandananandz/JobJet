@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jobjet/utlis/BottomBar.dart';
 import 'package:sizer/sizer.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -106,7 +107,7 @@ return Scaffold(
                 ),
               SizedBox(height: 10.h,),
 
-              BottomAppBar(),
+            
               
               ],
               

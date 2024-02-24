@@ -8,43 +8,45 @@ class PlanCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea
-    (child: Container( height: 12.35.h,
+    return 
+      
+        
+         Container
+        ( height: 12.35.h,
 
-      width:84.78.w,
+      width:85.w,
+      margin:EdgeInsets.only(top: 4.h,left: 4.w),
       decoration: BoxDecoration(color: Color.fromRGBO(232, 236, 255, 1),
       borderRadius: BorderRadius.circular(1.44.w)),
       
-      margin: EdgeInsets.only(left: 7.48.w),
+      
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         
     
-      children:[Text(
-                    '10\$/1 Month',
-                    textAlign: TextAlign.left,
-                      style: GoogleFonts.poppins(
-                  
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromRGBO(0, 0, 0, 1),
-                      
+      children:[
+        SizedBox(height: 2.h,),
+        Padding(
+          padding:  EdgeInsets.only(left:4.14.w),
+          child: Row(
+            children: [
+              Text(
+                          '10\$/1 Month',
+                          
+                          
+                            style: GoogleFonts.poppins(
+                        
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromRGBO(0, 0, 0, 1),
+                            
+                          
+                            
+                     ),
+                    ),
+                    SizedBox(width:22.53.w ,),
                     
-                      
-),
-      ),
-      SizedBox(height:1.73),
-      Text("Unlimited job alerts and Easy apply",
-      textAlign: TextAlign.left,
-       style: GoogleFonts.poppins(
-                  
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromRGBO(29, 29, 29, 1),
-
-),
-       ),
      
        Container(height: 3.37.h,
        width: 14.49.w,
@@ -53,23 +55,53 @@ class PlanCardScreen extends StatelessWidget {
 ,
       borderRadius: BorderRadius.circular(1.44.w)),
       
-      margin: EdgeInsets.only(left: 74.63.w),
+      margin: EdgeInsets.only(bottom: 1.h),
 
-       child:Text("Basic ",
-       textAlign: TextAlign.center,
-       style: GoogleFonts.poppins(
-                  
-                      fontSize: 9.83.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromRGBO(255, 255, 255, 1),
-),),
+       child:Padding(
+         padding:EdgeInsets.only(top:.40.h),
+         child: Text("Basic ",
+         textAlign: TextAlign.center,
+         style: GoogleFonts.poppins(
+                    
+                        fontSize: 9.83.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromRGBO(255, 255, 255, 1),
+                         ),
+                         ),
+       ),
 
 
 
-         ),   ],
-            ),
-             ),                   
+         ), 
+            ],
+          ),
+        ),
+      
+      SizedBox(height:1.73),
+
+      Row(
+        children: [
+          SizedBox(width: 4.14.w,),
+          Text("Unlimited job alerts and Easy apply",
+          textAlign: TextAlign.left,
+           style: GoogleFonts.poppins(
+                      
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromRGBO(29, 29, 29, 1),
+          
+          ),
+           ),
+        ],
       ),
+     
+       
+
+
+           ],
+            ),
+                               
+      
     
      
     );

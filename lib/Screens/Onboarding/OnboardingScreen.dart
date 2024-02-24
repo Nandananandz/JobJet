@@ -8,7 +8,7 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 14, 30, 130),
+      backgroundColor: Color.fromARGB(255, 22, 9, 97),
       body: Column(
         //crossAxisAlignment: CrossAxisAlignment.center,
         //mainAxisAlignment: MainAxisAlignment.center,
