@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jobjet/utlis/BottomBar.dart';
 import 'package:sizer/sizer.dart';
 
 class UserProfileScreen extends StatelessWidget {
@@ -14,19 +15,25 @@ class UserProfileScreen extends StatelessWidget {
             
           
             
-            Container(
-              margin: EdgeInsets.only(top:5.2.h, left: 35.w),
-              height: 18.78.w,
-              width: 18.78.w,
-              //color: Colors.blue, // Add background color if necessary
-              child: Image.asset(
-                'assets/profile.png',
-                fit: BoxFit.cover,
-              ),
-            ),
+            Column(
+              
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top:4.2.h, left:2.w),
+                  height: 18.78.w,
+                  width: 18.78.w,
+                  //color: Colors.blue, // Add background color if necessary
+                  child: Image.asset(
+                    'assets/profile.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              
+            
             SizedBox(height:2.08.h),
             Padding(
-              padding: EdgeInsets.only(left:32.w,),
+
+              padding: EdgeInsets.only(left:4.w,),
               child: Text("+971 521859586",
               
               style:GoogleFonts.poppins(
@@ -39,17 +46,22 @@ class UserProfileScreen extends StatelessWidget {
               
               ),
             ),
-            
+          
+      
             
           ],
 
-    
+        
       
+          
         ),
-      
-      
-      
-      
+         Expanded(child: Container(
+
+         ),),
+         BottomBar(),
+        
+          ],
+        ),
       ),
     );
   }
