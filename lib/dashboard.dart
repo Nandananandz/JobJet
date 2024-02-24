@@ -16,6 +16,7 @@ import 'package:jobjet/Screens/UserProfile/components/UserDetailCard.dart';
 import 'package:jobjet/Screens/Views/ViewScreen.dart';
 import 'package:jobjet/Screens/Views/components/Searchbar.dart';
 import 'package:jobjet/Screens/Views/components/ViewDetailCard.dart';
+import 'package:jobjet/utlis/BottomBar.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -153,10 +154,14 @@ class DashboardScreen extends StatelessWidget {
               },
              child: Text("viewscreen",style: TextStyle(color: Colors.red),
                      ),
-           ),SizedBox(height: 2,),
+           ),
+           SizedBox(height: 2),
+          
 
+          
 
         ],
+        
       ),
 
     );

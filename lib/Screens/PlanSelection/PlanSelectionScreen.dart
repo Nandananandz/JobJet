@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jobjet/main.dart';
+import 'package:jobjet/utlis/BottomBar.dart';
 import 'package:sizer/sizer.dart';
 
 class PlanSelectionScreen extends StatelessWidget {
@@ -123,7 +124,7 @@ class PlanSelectionScreen extends StatelessWidget {
             
 
             SizedBox(
-              height:41.84.h ,
+              height:30.84.h ,
             ),
             InkWell(
               onTap: (){
@@ -148,37 +149,13 @@ class PlanSelectionScreen extends StatelessWidget {
                     ),
               ),
                 ),
+                BottomBar(),
 
           ],
+        
         ),
       ),
-        bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset("assets/home.png",width: 11.70.w, height: 5.39.h),
-            label: "Home",
-            
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset("assets/iconhome.png",width: 11.70.w, height: 5.39.h),
-             label: "Data",
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset("assets/wallet.png",width: 11.70.w, height: 5.39.h),
-             label: "Wallet",
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset("assets/homeicon.png",width: 11.70.w, height: 5.39.h),
-             label: "Profile",
-            
-          ),
-          
-        ],
-        iconSize:1,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        onTap: (value){},
-      ),
+       
     );
   }
 }
