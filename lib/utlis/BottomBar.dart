@@ -15,8 +15,8 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
+    return 
+       BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
             icon: Image.asset("assets/home.png",width: 11.70.w, height: 5.39.h),
@@ -42,7 +42,7 @@ class _BottomBarState extends State<BottomBar> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         onTap: (value){},
-      ),
+      
       
     );
   }

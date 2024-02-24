@@ -8,13 +8,18 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff121B54),
+      backgroundColor: Color.fromARGB(255, 22, 9, 97),
       body: Column(
         //crossAxisAlignment: CrossAxisAlignment.center,
         //mainAxisAlignment: MainAxisAlignment.center,
-        children: 
-        [OnboardCardScreen()],
+        children: [Expanded(
+            child: Center(
+              child: OnboardCardScreen(),
+            ),
+        
       ),
+        ],
+    ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jobjet/Screens/PlanSelection/components/PlanCard.dart';
 import 'package:jobjet/main.dart';
 import 'package:jobjet/utlis/BottomBar.dart';
 import 'package:sizer/sizer.dart';
@@ -41,10 +42,10 @@ class PlanSelectionScreen extends StatelessWidget {
               Padding(
               padding: EdgeInsets.only(left:24.78.w,),
               child: SizedBox(
-                height:2.39.h ,
+                //height:2.39.h ,
                 //width: 30.67.w,
                  
-                child: Text("Your Premium plan Expired",
+                child: Text("Your Premium plan Expired \n August 22, 2023, 05:30PM",
                 style: GoogleFonts.poppins(
                   fontSize: 11.66.sp,
                   fontWeight:FontWeight.w400,
@@ -57,30 +58,7 @@ class PlanSelectionScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: .67.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 26.78.w),
-              child: SizedBox( 
-                //height:2.39.h ,
-                  //width: 30.67.w,
-                   
-                  child: Text("August 22, 2023, 05:30PM",
-                  style: GoogleFonts.poppins(
-                    fontSize: 11.66.sp,
-                    fontWeight:FontWeight.w400,
-                    color: Color(0xff000000),
-                  
-                  ),
-              
-                
-                  
-                  ),
-                
-              
-              ),
-            ),
+
             SizedBox(
               height: 2.58.h,
             ),
@@ -121,17 +99,22 @@ class PlanSelectionScreen extends StatelessWidget {
             ),
               ],
             ),
-            
-
             SizedBox(
-              height:30.84.h ,
+              height:3.6.h ,
             ),
+            Padding
+            (
+              padding:EdgeInsets.only(left:3.5.w,right: 6.w),
+            child: PlanCardScreen(),
+            ),
+            
+            SizedBox(height: 26.h,),
             InkWell(
               onTap: (){
                 
               },
               child: Padding(
-                padding:  EdgeInsets.only(left: 10.36.w),
+                padding:  EdgeInsets.only(left: 10.36.w,),
                 child: Container(
                   height: 6.29.h,
                   width: 78.98.w,
@@ -149,10 +132,13 @@ class PlanSelectionScreen extends StatelessWidget {
                     ),
               ),
                 ),
-                BottomBar(),
-
+                Expanded (
+                  child:Container(
+          
+                  ),
+                ),
+         BottomBar(),
           ],
-        
         ),
       ),
        
