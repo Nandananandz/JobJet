@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class HomeViewScreen extends StatelessWidget {
   const HomeViewScreen({super.key});
@@ -17,7 +17,7 @@ class HomeViewScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(height: 7.86.h,),
-          //Image.asset("assets/discover.png"),
+        // Image.asset("assets/discover.png"),
           SizedBox(height: 3.37.h,),
           Text("Find Your Dream\n              Job",
           style: GoogleFonts.poppins(
