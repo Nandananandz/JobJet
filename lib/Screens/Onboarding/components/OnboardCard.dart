@@ -18,6 +18,9 @@ class OnboardCardScreen extends StatelessWidget {
             width: 113.28.w,
             color: Color.fromRGBO(28, 37, 93, 1),
             margin: EdgeInsets.all(40),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: Column(
                 children: [
@@ -59,28 +62,28 @@ class OnboardCardScreen extends StatelessWidget {
                   SizedBox(height: 5.28.h),
                   SizedBox(
                     // height: 30.85.h,
-                    width: 59.66.w,
+                   // width: 59.66.w,
                     child: Text(
                         "Experience First, Decide Later - No Credit Card Required. Enjoy Unlimited Job Views in the UAE for 2 Days with Free Access to All App Features.",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.nunitoSans(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(255, 255, 255, 1))),
+                            color: Color.fromRGBO(255, 255, 255, 1),),),
                   ),
                   SizedBox(
                     height: 5.07.h,
                   ),
                   Container(
-                    color: Color.fromRGBO(31, 65, 186, 1),
+                    color: Color.fromRGBO(227, 228, 233, 1),
                     // height: 5.84.h, width: 62.31.w,
 
                     child: Text("Start free Trial",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                            fontSize: 16,
+                            fontSize: 13.33.sp,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(255, 255, 255, 1))),
+                            color: Color.fromRGBO(227, 228, 233, 1))),
                   ),
                 ],
               ),
