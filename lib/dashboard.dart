@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jobjet/Screens/HomeScreen/Component/HomeViewScreen.dart';
+
 import 'package:jobjet/Screens/HomeScreen/HomScreen.dart';
 import 'package:jobjet/Screens/LoginScreen/Component/LoginScreen.dart';
 import 'package:jobjet/Screens/LoginScreen/Component/VSucessScreen.dart';
@@ -23,11 +24,20 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(height:6),
-            InkWell(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            SizedBox(height:6),
+              InkWell(
+                onTap: () {
+                  Get.to(()=>HomeViewScreen());
+                },
+                child: Text("homeViewscreen",style: TextStyle(color: Colors.red),
+                        ),
+              ),
+            SizedBox(height: 2,),
+             InkWell(
               onTap: () {
                 Get.to(()=>HomeViewScreen());
               },
@@ -163,7 +173,7 @@ class DashboardScreen extends StatelessWidget {
         ],
         
       ),
-
+    )
     );
   }
 }

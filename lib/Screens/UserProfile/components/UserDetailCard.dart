@@ -33,8 +33,7 @@ class UserDetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-        
-        
+              
               SizedBox(height: 1.23.h),
               Text('Complete your Profile',
               style: GoogleFonts.poppins(
@@ -90,8 +89,7 @@ class UserDetailScreen extends StatelessWidget {
   }
 }
 
-
- _textfield(String text) {
+ _textfield(String text){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -122,8 +120,7 @@ class UserDetailScreen extends StatelessWidget {
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w600
                 ),
-
-
+                  
               ),
             ),
              SizedBox(height: 1.68.h),
