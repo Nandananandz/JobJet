@@ -16,6 +16,7 @@ class ViewDetailCard extends StatelessWidget {
                 height: 62.98.h,
                 width: 99.27.w,
                 color: Color(0xFFFFFFFF),
+                
         
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

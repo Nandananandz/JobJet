@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:jobjet/Screens/HomeScreen/Component/HomeViewScreen.dart';
+import 'package:sizer/sizer.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -8,7 +10,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomeViewScreen();
+    return Container(
+      child: HomeViewScreen()
+      
+    );
+      
+      
+      
+        
+          
+            
+        
+      
+    
     
   }
 }

@@ -13,7 +13,7 @@ class OnboardingScreen extends StatelessWidget {
         //crossAxisAlignment: CrossAxisAlignment.center,
         //mainAxisAlignment: MainAxisAlignment.center,
         children: 
-        [],
+        [OnboardCardScreen()],
       ),
     );
   }

@@ -104,13 +104,15 @@ return Scaffold(
                     
                   ],
                 ),
-              
+              SizedBox(height: 10.h,),
+
+              BottomAppBar(),
               
               ],
               
         
 
-          
+      
             ),
         
           

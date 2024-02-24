@@ -17,6 +17,7 @@ import 'package:jobjet/Screens/UserProfile/components/UserDetailCard.dart';
 import 'package:jobjet/Screens/Views/ViewScreen.dart';
 import 'package:jobjet/Screens/Views/components/Searchbar.dart';
 import 'package:jobjet/Screens/Views/components/ViewDetailCard.dart';
+import 'package:jobjet/utlis/BottomBar.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -38,131 +39,141 @@ class DashboardScreen extends StatelessWidget {
             SizedBox(height: 2,),
              InkWell(
               onTap: () {
-                  Get.to(()=>HomeScreen());
-                },
-               child: Text("homescreen",style: TextStyle(color: Colors.red),
-                       ),
-             ),
-            SizedBox(height: 2,),
-             InkWell(
-              onTap: () {
-                  Get.to(()=>LoginScreen());
-                },
-               child: Text("loginscreen",style: TextStyle(color: Colors.red),
-                       ),
-             ),
-            SizedBox(height: 2,),
-             InkWell(
-              onTap: () {
-                  Get.to(()=>VerificationScreen());
-                },
-               child: Text("verificationscreen",style: TextStyle(color: Colors.red),
-                       ),
-             ),
-            SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>VSucessScreen());
-                },
-               child: Text("Vsucessscreen",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>OnboardCardScreen());
-                },
-               child: Text("Onboardcard",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell
-             (onTap: () {
-                  Get.to(()=>OnboardingScreen());
-                },
-               child: Text("onboardingScreen",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>PlanCardScreen());
-                },
-               child: Text("plancard",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>PlanSelectionScreen());
-                },
-               child: Text("planselectionscreen",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>CompleteProfileCard());
-                },
-               child: Text("completeprofilecard",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>ProfileViewScreen());
-                },
-               child: Text("profileviewscreen",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>UserDetailScreen());
-                },
-               child: Text("userdetailcard",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>UserProfileScreen());
-                },
-               child: Text("userprofilescreen",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>SearchScreen());
-                },
-               child: Text("searchbar",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>ViewDetailCard());
-                },
-               child: Text("viewdetailcard",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-             
-             InkWell(
-              onTap: () {
-                  Get.to(()=>ViewScreen());
-                },
-               child: Text("viewscreen",style: TextStyle(color: Colors.red),
-                       ),
-             ),SizedBox(height: 2,),
-      
-      
-          ],
-        ),
-      
+                Get.to(()=>HomeViewScreen());
+              },
+              child: Text("homeViewscreen",style: TextStyle(color: Colors.red),
+                      ),
+            ),
+          SizedBox(height: 2,),
+           InkWell(
+            onTap: () {
+                Get.to(()=>HomeScreen());
+              },
+             child: Text("homescreen",style: TextStyle(color: Colors.red),
+                     ),
+           ),
+          SizedBox(height: 2,),
+           InkWell(
+            onTap: () {
+                Get.to(()=>LoginScreen());
+              },
+             child: Text("loginscreen",style: TextStyle(color: Colors.red),
+                     ),
+           ),
+          SizedBox(height: 2,),
+           InkWell(
+            onTap: () {
+                Get.to(()=>VerificationScreen());
+              },
+             child: Text("verificationscreen",style: TextStyle(color: Colors.red),
+                     ),
+           ),
+          SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>VSucessScreen());
+              },
+             child: Text("Vsucessscreen",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>OnboardCardScreen());
+              },
+             child: Text("Onboardcard",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell
+           (onTap: () {
+                Get.to(()=>OnboardingScreen());
+              },
+             child: Text("onboardingScreen",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>PlanCardScreen());
+              },
+             child: Text("plancard",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>PlanSelectionScreen());
+              },
+             child: Text("planselectionscreen",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>CompleteProfileCard());
+              },
+             child: Text("completeprofilecard",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>ProfileViewScreen());
+              },
+             child: Text("profileviewscreen",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>UserDetailScreen());
+              },
+             child: Text("userdetailcard",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>UserProfileScreen());
+              },
+             child: Text("userprofilescreen",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>SearchScreen());
+              },
+             child: Text("searchbar",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>ViewDetailCard());
+              },
+             child: Text("viewdetailcard",style: TextStyle(color: Colors.red),
+                     ),
+           ),SizedBox(height: 2,),
+           
+           InkWell(
+            onTap: () {
+                Get.to(()=>ViewScreen());
+              },
+             child: Text("viewscreen",style: TextStyle(color: Colors.red),
+                     ),
+           ),
+           SizedBox(height: 2),
+          
+
+          
+
+        ],
+        
       ),
+    )
     );
-    
   }
 }
