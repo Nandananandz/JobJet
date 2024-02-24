@@ -17,13 +17,10 @@ class OnboardCardScreen extends StatelessWidget {
             child: Container(
               height: 58.76.h,
               width: 80.28.w,
-              
-              margin: EdgeInsets.all(40),
+              margin: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color:Color.fromRGBO(28, 37, 93, 1),
+                color: Color.fromRGBO(28, 37, 93, 1),
                 borderRadius: BorderRadius.circular(17),
-               
-      
               ),
               child: Center(
                 child: Column(
@@ -80,10 +77,11 @@ class OnboardCardScreen extends StatelessWidget {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                      color: Color.fromRGBO(31, 65, 186, 1),
-                      borderRadius: BorderRadius.circular(50),),
-                      height: 6.4.h, width: 69.31.w,
-      
+                        color: Color.fromRGBO(31, 65, 186, 1),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      height: 6.4.h,
+                      width: 69.31.w,
                       child: Padding(
                         padding: const EdgeInsets.all(8.5),
                         child: Text("Start free Trial",
@@ -100,9 +98,7 @@ class OnboardCardScreen extends StatelessWidget {
             ),
           ),
         ],
-        
       ),
-      
     );
   }
 }
