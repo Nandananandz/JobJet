@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jobjet/Screens/HomeScreen/Component/HomeViewScreen.dart';
+
 import 'package:jobjet/Screens/HomeScreen/HomScreen.dart';
 import 'package:jobjet/Screens/LoginScreen/Component/LoginScreen.dart';
 import 'package:jobjet/Screens/LoginScreen/Component/VSucessScreen.dart';
@@ -14,18 +15,29 @@ import 'package:jobjet/Screens/UserProfile/components/CompleteProfileCard.dart';
 import 'package:jobjet/Screens/UserProfile/components/ProfileViewScreen.dart';
 import 'package:jobjet/Screens/UserProfile/components/UserDetailCard.dart';
 import 'package:jobjet/Screens/Views/ViewScreen.dart';
+import 'package:jobjet/Screens/Views/components/Searchbar.dart';
 import 'package:jobjet/Screens/Views/components/ViewDetailCard.dart';
+import 'package:jobjet/utlis/BottomBar.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(height:6),
-            InkWell(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            SizedBox(height:6),
+              InkWell(
+                onTap: () {
+                  Get.to(()=>HomeViewScreen());
+                },
+                child: Text("homeViewscreen",style: TextStyle(color: Colors.red),
+                        ),
+              ),
+            SizedBox(height: 2,),
+             InkWell(
               onTap: () {
                 Get.to(()=>HomeViewScreen());
               },
@@ -132,7 +144,7 @@ class DashboardScreen extends StatelessWidget {
            
            InkWell(
             onTap: () {
-                Get.to(()=>SearchBar());
+                Get.to(()=>SearchScreen());
               },
              child: Text("searchbar",style: TextStyle(color: Colors.red),
                      ),
@@ -152,12 +164,16 @@ class DashboardScreen extends StatelessWidget {
               },
              child: Text("viewscreen",style: TextStyle(color: Colors.red),
                      ),
-           ),SizedBox(height: 2,),
+           ),
+           SizedBox(height: 2),
+          
 
+          
 
         ],
+        
       ),
-
+    )
     );
   }
 }
