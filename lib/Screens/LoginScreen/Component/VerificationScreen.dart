@@ -81,9 +81,9 @@ class VerificationScreen extends StatelessWidget {
             Container(
               //height: 3.h,
               //width:59.90.w ,
-              margin: EdgeInsets.only(top:1.5.h,left:15.73.w),
+              margin: EdgeInsets.only(top:1.5.h,left:14.73.w),
               child: Text(
-                "Please enter the 4 digit verification ",
+                "Please enter the 4 digit verification \n code sent to +971 5815 8985 69 ",
                 style: GoogleFonts.poppins(
                   fontSize: 11.66.sp,
                   fontWeight: FontWeight.w500,
@@ -91,19 +91,7 @@ class VerificationScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              //height: 7.h,
-             // width:59.90.w ,
-              margin: EdgeInsets.only(left:18.73.w,top:.9.h),
-              child: Text(
-                "code sent to +971 5815 8985 69",
-                style: GoogleFonts.poppins(
-                  fontSize: 11.66.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff717784),
-                ),
-              ),
-            ),
+
             SizedBox(
               height:.005.h ,
             ),

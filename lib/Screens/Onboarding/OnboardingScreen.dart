@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobjet/Screens/Onboarding/components/OnboardCard.dart';
+import 'package:sizer/sizer.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -9,9 +10,10 @@ class OnboardingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xff121B54),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [OnboardCardScreen()],
+        //crossAxisAlignment: CrossAxisAlignment.center,
+        //mainAxisAlignment: MainAxisAlignment.center,
+        children: 
+        [],
       ),
     );
   }

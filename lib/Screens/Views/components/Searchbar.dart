@@ -8,16 +8,17 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Container(
+return Scaffold(
+      body: SafeArea(
+
+          
             child: Column(
               children: [
+                SizedBox(height:3.5.h,width: 5.36.w,),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
+                    SizedBox(width:5.36.w),
                     Container(
                       alignment: Alignment.center,
                       height: 4.60.h,
@@ -25,10 +26,7 @@ class SearchScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Color(0xFFE8ECFF)),
-                      child: Icon(
-                        Icons.menu,
-                        color: Color(0xFF141F5A),
-                      ),
+                      child: Image.asset("assets/menu.png")
                     ),
                     SizedBox(
                       width: 4.10.w,
@@ -55,7 +53,7 @@ class SearchScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 4.83.w,
+                      width: 4.78.w,
                     ),
                     Icon(
                       Icons.notifications_outlined,
@@ -64,38 +62,60 @@ class SearchScreen extends StatelessWidget {
                   ],
                 ),
 
-
+                 SizedBox(height: 3.25.h,),
 
                 //sorting code ivde thott
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(width: 5.36.w,),
                     Text(
-                      'sortby : Newest post',
+                      'Sort  by :',
                       style: TextStyle(
                         fontSize: 10.0.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Icon(Icons.arrow_drop_down),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        height: 3.37.h,
-                        width: 7.24.w,
-                        child: Icon(Icons.tune, color: Colors.white),
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(31, 65, 186, 1),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
+                    SizedBox(width:1.95.w),
+                     Text(
+                      'Newest Posts',
+                      style: TextStyle(
+                        fontSize: 10.0.sp,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
+                     SizedBox(width:2.43.w),
+                    Icon(Icons.keyboard_arrow_down),
+                    SizedBox(width:32.23.w),
+                  
+                       
+                         Padding(
+                           padding:  EdgeInsets.only(bottom:1.h),
+                           child: Container(
+                            height: 7.3.h,
+                            width: 7.3.h,
+                            margin: EdgeInsets.only(top: .1.h),
+                            child: Image.asset("assets/filter.png"),
+                            ),
+                         ),
+                       
+                      
+                    
                   ],
-                )
+                ),
+              
+              
               ],
+              
+        
+
+          
             ),
-          ),
+        
+          
         ),
-      ),
+      
     );
   }
 }
