@@ -14,7 +14,7 @@ class UserProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 5.2.h, left: 35.w),
+              margin: EdgeInsets.only(top: 5.2.h, left: 3.w),
               height: 18.78.w,
               width: 18.78.w,
               //color: Colors.blue, // Add background color if necessary
@@ -26,7 +26,7 @@ class UserProfileScreen extends StatelessWidget {
             SizedBox(height: 2.08.h),
             Padding(
               padding: EdgeInsets.only(
-                left: 32.w,
+                left:2.w,
               ),
               child: Text(
                 "+971 521859586",

@@ -15,7 +15,7 @@ class PlanCardScreen extends StatelessWidget {
         ( height: 12.35.h,
 
       width:85.w,
-      margin:EdgeInsets.only(top: 4.h,left: 4.w),
+      margin:EdgeInsets.only(left:7.5.w,top:1.9.h),
       decoration: BoxDecoration(color: Color.fromRGBO(232, 236, 255, 1),
       borderRadius: BorderRadius.circular(1.44.w)),
       
