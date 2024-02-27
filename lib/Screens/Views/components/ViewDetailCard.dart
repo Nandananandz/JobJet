@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jobjet/Screens/UserProfile/UserProfileScreen.dart';
 import 'package:jobjet/main.dart';
 import 'package:readmore/readmore.dart';
 import 'package:sizer/sizer.dart';
@@ -11,7 +13,7 @@ class ViewDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(6),
-      height: 62.98.h,
+      //   height: 62.98.h,
       width: 99.27.w,
       color: Color(0xFFFFFFFF),
       child: Column(
@@ -22,16 +24,21 @@ class ViewDetailCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Container(
-                height: 4.44.h,
-                width: 10.38.w,
-                decoration: BoxDecoration(
-                    color: Color(0xFF121B54),
-                    borderRadius: BorderRadius.circular(5)),
-                child: Image.asset(
-                  'assets/doctor.png',
-                  height: 3.18.h,
-                  width: 6.85.w,
+              InkWell(
+                onTap: () {
+                  Get.to(() => UserProfileScreen());
+                },
+                child: Container(
+                  height: 4.44.h,
+                  width: 10.38.w,
+                  decoration: BoxDecoration(
+                      color: Color(0xFF121B54),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Image.asset(
+                    'assets/doctor.png',
+                    height: 3.18.h,
+                    width: 6.85.w,
+                  ),
                 ),
               ),
               SizedBox(

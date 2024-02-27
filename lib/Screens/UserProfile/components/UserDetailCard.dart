@@ -9,18 +9,18 @@ class UserDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: Container(
-        margin: EdgeInsets.only(
-            left: 3.86.w, bottom: 1.46.h, top: 1.23.h, right: 1.46.w),
-        alignment: Alignment.center,
-        height: 4.04.h,
-        width: 8.69.w,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5), color: Color(0xFFE8ECFF)),
-        child: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
+          leading: InkWell(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          margin: EdgeInsets.only(
+              left: 3.86.w, bottom: 1.46.h, top: 1.23.h, right: 1.46.w),
+          alignment: Alignment.center,
+          height: 4.04.h,
+          width: 8.69.w,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5), color: Color(0xFFE8ECFF)),
           child: Icon(
             Icons.arrow_back_ios_new_rounded,
             size: 1.8.h,

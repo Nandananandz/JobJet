@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jobjet/Screens/LoginScreen/Component/LoginScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeViewScreen extends StatelessWidget {
@@ -9,6 +11,7 @@ class HomeViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
+        padding: EdgeInsets.all(4.2.w),
         color: Color.fromARGB(255, 22, 9, 97),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -18,7 +21,7 @@ class HomeViewScreen extends StatelessWidget {
             ),
             Image.asset(
               "assets/discover.png",
-              colorBlendMode: BlendMode.dstATop,
+              colorBlendMode: BlendMode.multiply,
             ),
             SizedBox(
               height: 3.37.h,
@@ -35,7 +38,8 @@ class HomeViewScreen extends StatelessWidget {
               height: 0.24.h,
             ),
             Text(
-              "Swipe through thousands of job listings in \n   the UAE from top companies. Discover \n  new opportunities that match your skills \n                     and experience",
+              "Swipe through thousands of job listings in  the UAE from top companies. Discover new opportunities that match your skills and experience",
+              textAlign: TextAlign.center,
               style: GoogleFonts.nunitoSans(
                 fontSize: 13.33.sp,
                 fontWeight: FontWeight.w600,
@@ -43,16 +47,18 @@ class HomeViewScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 4.49.h),
-            Container(
-              alignment: Alignment.center,
-              height: 5.84.h,
-              width: 63.52.w,
-              decoration: BoxDecoration(
-                color: Color(0xFF1F41BA),
-                borderRadius: BorderRadius.circular(5.61.h),
-              ),
-              child: InkWell(
-                onTap: () {},
+            InkWell(
+              onTap: () {
+                Get.to(() => LoginScreen());
+              },
+              child: Container(
+                alignment: Alignment.center,
+                height: 5.84.h,
+                width: 63.52.w,
+                decoration: BoxDecoration(
+                  color: Color(0xFF1F41BA),
+                  borderRadius: BorderRadius.circular(5.61.h),
+                ),
                 child: Text(
                   'Next',
                   style: GoogleFonts.poppins(

@@ -64,12 +64,12 @@ class SearchScreen extends StatelessWidget {
             ),
 
             SizedBox(
-              height: 3.25.h,
+              height: .5.h,
             ),
 
             //sorting code ivde thott
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               //mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
@@ -92,15 +92,14 @@ class SearchScreen extends StatelessWidget {
                 ),
                 SizedBox(width: 2.43.w),
                 Icon(Icons.keyboard_arrow_down),
-                SizedBox(width: 32.23.w),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 1.h),
-                  child: Container(
-                    height: 7.3.h,
-                    width: 7.3.h,
-                    margin: EdgeInsets.only(top: .1.h),
-                    child: Image.asset("assets/filter.png"),
-                  ),
+                //SizedBox(width: 32.23.w),
+                Expanded(child: Container()),
+                Container(
+                  height: 4.h,
+                  width: 3.h,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(right: 5.2.w, bottom: 1.h),
+                  child: Image.asset("assets/filter.png"),
                 ),
               ],
             ),

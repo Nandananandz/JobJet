@@ -1,7 +1,9 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jobjet/Screens/Views/ViewScreen.dart';
 import 'package:jobjet/main.dart';
 import 'package:sizer/sizer.dart';
 
@@ -75,21 +77,27 @@ class OnboardCardScreen extends StatelessWidget {
                     SizedBox(
                       height: 4.07.h,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(31, 65, 186, 1),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      height: 6.4.h,
-                      width: 69.31.w,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.5),
-                        child: Text("Start free Trial",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.poppins(
-                                fontSize: 13.33.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Color.fromRGBO(255, 255, 255, 1))),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => ViewScreen());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(31, 65, 186, 1),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        height: 6.4.h,
+                        width: 69.31.w,
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.5),
+                          child: Text("Start free Trial",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 13.33.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color.fromRGBO(255, 255, 255, 1))),
+                        ),
                       ),
                     ),
                   ],
