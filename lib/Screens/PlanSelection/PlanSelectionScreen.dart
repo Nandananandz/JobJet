@@ -11,14 +11,14 @@ class PlanSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child:Column(
+    return SafeArea( 
+    child: Scaffold(
+        body:Column(
          // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left:32.78.w,top: 10.33.h),
+              padding: EdgeInsets.only(left:32.78.w,top: 8.33.h),
               child: SizedBox(
                 height:5.39.h ,
                 //width: 30.67.w,
@@ -30,14 +30,14 @@ class PlanSelectionScreen extends StatelessWidget {
                   color: Color(0xffFF0303),
                 
                 ),
-
+        
               
                 
                 ),
               ),
             ),
             SizedBox(
-              height: .67.h,
+              height: .67.h
             ),
               Padding(
               padding: EdgeInsets.only(left:24.78.w,),
@@ -52,18 +52,18 @@ class PlanSelectionScreen extends StatelessWidget {
                   color: Color(0xff000000),
                 
                 ),
-
+        
               
                 
                 ),
               ),
             ),
-
+        
             SizedBox(
               height: 2.58.h,
             ),
             Stack(
-
+        
               children: [
                 Padding(
                 padding: EdgeInsets.only(left:16.88.w,top: 6.h),
@@ -100,15 +100,25 @@ class PlanSelectionScreen extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height:3.6.h ,
+              height:2.73.h ,
             ),
-            Padding
-            (
-              padding:EdgeInsets.only(left:3.5.w,right: 6.w),
-            child: PlanCardScreen(),
-            ),
+            Column(children: [
+            //  SizedBox(height:1.5.h),
+
+           PlanCardScreen(),
+          
+           
+             PlanCardScreen(),
+        
+            PlanCardScreen(),
             
-            SizedBox(height: 26.h,),
+
+            ],),
+          
+            
+            
+            
+            SizedBox(height: 4.h,),
             InkWell(
               onTap: (){
                 
