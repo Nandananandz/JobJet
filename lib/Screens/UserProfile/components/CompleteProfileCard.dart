@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jobjet/Screens/UserProfile/components/UserDetailCard.dart';
+import 'package:jobjet/Screens/Views/Service/Controller.dart';
 import 'package:sizer/sizer.dart';
 
 class CompleteProfileCard extends StatelessWidget {
@@ -35,7 +36,7 @@ class CompleteProfileCard extends StatelessWidget {
               height: 1.34.h,
             ),
             Text(
-              'To maximize your chances of receiving interview \n calls, complete your profile with all fields',
+              'To maximize your chances of receiving interview calls, complete your profile with all fields',
               textAlign: TextAlign.center,
               style: GoogleFonts.nunitoSans(
                   fontSize: 10.83.sp,
@@ -55,7 +56,10 @@ class CompleteProfileCard extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => UserDetailScreen());
+                JobController ctrl = Get.put(JobController());
+                Get.to(() => UserDetailScreen(
+                      userData: ctrl.profileData,
+                    ));
               },
               child: Container(
                 alignment: Alignment.center,

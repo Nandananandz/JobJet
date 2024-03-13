@@ -11,18 +11,15 @@ class HomeViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        padding: EdgeInsets.all(4.2.w),
+        //padding: EdgeInsets.all(4.2.w),
         color: Color.fromARGB(255, 22, 9, 97),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 6.86.h,
-            ),
-            Image.asset(
-              "assets/discover.png",
-              colorBlendMode: BlendMode.multiply,
-            ),
+            // Image.asset(
+            //   "assets/discover.png",
+            //   colorBlendMode: BlendMode.multiply,
+            // ),
             SizedBox(
               height: 3.37.h,
             ),
@@ -46,28 +43,6 @@ class HomeViewScreen extends StatelessWidget {
                 color: Color(0xFF7B88B3),
               ),
             ),
-            SizedBox(height: 4.49.h),
-            InkWell(
-              onTap: () {
-                Get.to(() => LoginScreen());
-              },
-              child: Container(
-                alignment: Alignment.center,
-                height: 5.84.h,
-                width: 63.52.w,
-                decoration: BoxDecoration(
-                  color: Color(0xFF1F41BA),
-                  borderRadius: BorderRadius.circular(5.61.h),
-                ),
-                child: Text(
-                  'Next',
-                  style: GoogleFonts.poppins(
-                      fontSize: 11.66.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFFFFFFF)),
-                ),
-              ),
-            )
           ],
         ),
       ),
