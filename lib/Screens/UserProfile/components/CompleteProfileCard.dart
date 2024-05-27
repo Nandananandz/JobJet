@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jobjet/Screens/UserProfile/components/UserDetailCard.dart';
+import 'package:jobjet/Screens/UserProfile/components/UpdateProfile.dart';
 import 'package:jobjet/Screens/Views/Service/Controller.dart';
 import 'package:sizer/sizer.dart';
 

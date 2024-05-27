@@ -109,10 +109,16 @@ class LoginScreen extends StatelessWidget {
                     height: 6.5.h,
                     width: 78.98.w,
                     child: InternationalPhoneNumberInput(
+                      initialValue: Authctrl.countryCode,
+                      hintText: "Enter Mobile Number",
+
                       onInputChanged: (value) {
+                        // Authctrl.countryCode = value;
+
                         Authctrl.phoneNumber = value.phoneNumber!;
+                        Authctrl.update();
                       },
-                      ignoreBlank: true,
+                      ignoreBlank: false,
                       textStyle: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
                       ),
@@ -121,17 +127,21 @@ class LoginScreen extends StatelessWidget {
                       selectorConfig: SelectorConfig(
                           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                           showFlags: true,
-                          setSelectorButtonAsPrefixIcon: true,
+                          //useEmoji: true,
+                          setSelectorButtonAsPrefixIcon: false,
                           trailingSpace: false,
                           leadingPadding: 2),
                       keyboardType: TextInputType.phone,
                       // obscureText: false,
                       textAlignVertical: TextAlignVertical.center,
                       inputDecoration: InputDecoration(
-                          // suffixIcon: Padding(
-                          //   padding: EdgeInsets.only(right: 15.0),
-                          //   child: Icon(Icons.check, color: Color(0xff01C8EE)),
-                          // ),
+                          suffixIcon: Padding(
+                            padding: EdgeInsets.only(right: 15.0),
+                            child: Icon(Icons.check,
+                                color: (Authctrl.phoneNumber.length == 13)
+                                    ? Color(0xff01C8EE)
+                                    : Colors.grey),
+                          ),
                           border: InputBorder.none),
                     ),
                   ),

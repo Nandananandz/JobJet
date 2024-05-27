@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:engagespot_sdk/engagespot_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -22,19 +23,36 @@ var profileData;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences pref = await SharedPreferences.getInstance();
-  Stripe.publishableKey =
-      "pk_test_51MUX2ZSEzkLjQ54gSVUREGnf8sdy0J93dPdWSCW4qztine9WZgxNOsjnBCwm9SPKC37UVY7ib821NVrBmKWICzRw00WznOLMc9";
-  await Stripe.instance.applySettings();
+ 
   token = pref.getString("TOKEN");
   userID = pref.getString("USERID");
   login = pref.getString("STATUS");
-  print(token);
-  if (login == "IN") {
+
+  Engagespot.initSdk(
+      isDebug: true,
+      apiKey: "n76ud46qb5yq8zhlg0l9",
+     );
+
+
+  AuthHeader =  {
+  'Content-Type': 'application/json',
+  "Authorization": "Bearer $token",
+  "Vary": "Accept"
+};
+  
+  if (login == "IN" ) {
     final Response =
         await get(Uri.parse(baseUrl + "auth/profile"), headers: AuthHeader);
-
+print(Response.body);
+print(Response.statusCode);
+print(AuthHeader);
     if (Response.statusCode == 200) {
-      profileData = json.decode(Response.body);
+
+      try{
+      profileData = json.decode(Response.body);}
+      catch(e){
+ login = "OUT";
+      }
     } else {
       login = "OUT";
     }
@@ -49,7 +67,8 @@ class JobJet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, Orientation, DeviceType) {
       return GetMaterialApp(
-        home: (login == null)
+    
+        home: (login == null )
             ? HomeScreen()
             : login == "IN"
                 ? (profileData != null &&

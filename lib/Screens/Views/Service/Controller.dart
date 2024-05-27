@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:engagespot_sdk/engagespot_sdk.dart';
+import 'package:engagespot_sdk/models/Notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -15,6 +17,8 @@ class JobController extends GetxController {
   var profileData;
   var fullCategory;
   List jobCategory = [];
+  bool loading = false;
+  String selectedSort = "Today";
 
   TextEditingController nameController = TextEditingController();
   TextEditingController Resume = TextEditingController();
@@ -23,13 +27,29 @@ class JobController extends GetxController {
   TextEditingController category = TextEditingController();
   TextEditingController currentJobTitle = TextEditingController();
 
-  fetchJobs({String sort = "desc"}) async {
+  TextEditingController Csort = TextEditingController();
+  TextEditingController Lsort = TextEditingController();
+  TextEditingController Esort = TextEditingController();
+  TextEditingController Ssort = TextEditingController();
+  TextEditingController Jsort = TextEditingController();
+  TextEditingController Tsort = TextEditingController();
+
+  fetchJobs({String sort = "today", String search = ""}) async {
+    String params = "";
+
+    if (search != "") params = params + "&search=$search";
+    print(baseUrl +
+        "jobs/subscribed?date_filter=${sort.replaceAll(" ", "-")}" +
+        params);
+    loading = true;
+    update();
     final Response = await get(
         Uri.parse(
-          baseUrl + "jobs/subscribed?sort=$sort",
+          baseUrl + "jobs/subscribed?date_filter=$sort" + params,
         ),
         headers: AuthHeader);
-
+    loading = false;
+    update();
     print(Response.body);
     print(Response.statusCode);
     if (Response.statusCode == 200) {
@@ -39,6 +59,57 @@ class JobController extends GetxController {
       // if (sort == "desc")
       //   JobList.sort((a, b) => b["created_at"].compareTo(a["created_at"]));
     }
+  }
+
+  fetchSortJob({String search = ""}) async {
+    String params = "";
+
+    if (Csort.text.isNotEmpty) {
+      params = params + "&" + "categories=${Csort.text}";
+    }
+    if (Lsort.text.isNotEmpty) {
+      params = params + "&" + "location=${Lsort.text}";
+    }
+    if (Esort.text.isNotEmpty) {
+      params = params + "&" + "experience_required=${Esort.text}";
+    }
+    if (Ssort.text.isNotEmpty) {
+      params = params + "&" + "salary=${Ssort.text}";
+    }
+    if (Jsort.text.isNotEmpty) {
+      params = params + "&" + "joining_time=${Jsort.text.replaceAll(" ", "-")}";
+    }
+
+    if (search != "") params = params + "&search=$search";
+    loading = true;
+    update();
+    print(baseUrl + "jobs/subscribed?date_filter=$selectedSort" + params);
+    final Response = await get(
+        Uri.parse(
+          baseUrl +
+              "jobs/subscribed?date_filter=${selectedSort.replaceAll(" ", "-")}" +
+              params,
+        ),
+        headers: AuthHeader);
+    loading = false;
+    update();
+
+    if (Response.statusCode == 200) {
+      JobList = json.decode(Response.body)["data"];
+      update();
+
+      // if (sort == "desc")
+      //   JobList.sort((a, b) => b["created_at"].compareTo(a["created_at"]));
+    }
+  }
+
+  bool checkInFavorite(int id) {
+    for (var data in profileData["favourites"]) {
+      if (data["id"] == id) {
+        return true;
+      }
+    }
+    return false;
   }
 
   String releativeTime(String time, BuildContext context) {
@@ -88,17 +159,43 @@ class JobController extends GetxController {
     if (Response.statusCode == 200) {
       var js = json.decode(Response.body);
       fullLocation = js;
+      for (var data in fullLocation) {
+        locationNameList.add(data["name"]);
+      }
     }
   }
 
+  List locationNameList = [];
+
   fetchProfile() async {
+    print(AuthHeader);
     final Response =
         await get(Uri.parse(baseUrl + "auth/profile"), headers: AuthHeader);
     print(Response.body);
     if (Response.statusCode == 200) {
       profileData = json.decode(Response.body);
+      print(profileData["id"]);
+      Engagespot.LoginUser(userId: profileData["id"]);
       update();
+
+      loadNotification();
     }
+  }
+
+  NotificationSet? notifications;
+  loadNotification() async {
+    print("Notifications");
+    notifications = await Engagespot.getNotifications();
+
+    Engagespot.ListernMessage(onMessage: (message) {
+      notifications!.notificationMessage!.insert(0, message);
+      notifications!.unReadCount = notifications!.unReadCount! + 1;
+      update();
+    }, onReadAll: () {
+     
+      notifications!.unReadCount = 0;
+      update();
+    });
   }
 
   updateProfile() async {
@@ -131,6 +228,20 @@ class JobController extends GetxController {
       Fluttertoast.showToast(msg: "Profile Updated");
       fetchProfile();
     }
+  }
+
+  bool checkInSubscription(int id) {
+    for (var data in profileData["user_subscriptions"]) {
+      if (data["subscription_id"] == id) {
+        if (DateTime.parse(data["end_date"]).isAfter(DateTime.now())) {
+          return true;
+        } else {
+          false;
+        }
+        break;
+      }
+    }
+    return false;
   }
 
   @override

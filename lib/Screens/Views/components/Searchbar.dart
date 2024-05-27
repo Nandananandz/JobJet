@@ -5,7 +5,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jobjet/Screens/Views/Service/Controller.dart';
 import 'package:jobjet/Screens/Views/ViewScreen.dart';
+import 'package:jobjet/Screens/Views/components/AdvanceFilterPage.dart';
 import 'package:jobjet/Screens/Views/components/NotificationScreen.dart';
+import 'package:jobjet/misc.dart';
 import 'package:sizer/sizer.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -17,7 +19,6 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   JobController ctrl = Get.put(JobController());
-  String selectedSort = "Newest Post";
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   borderRadius: BorderRadius.circular(10),
                   color: Color(0xFFE8ECFF),
                 ),
-                child: TextFormField(
+                child: TextField(
+                  onSubmitted: (value) {
+                    ctrl.fetchJobs(search: value, sort: ctrl.selectedSort);
+                  },
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       prefixIcon: Icon(
@@ -79,10 +83,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Get.to(() => NotificationScreen(),
                       transition: Transition.rightToLeft);
                 },
-                child: Icon(
-                  Icons.notifications_outlined,
-                  color: Color(0xFF121B54),
-                ),
+                child: myAppBarIcon( ctrl.notifications != null ? ctrl.notifications!.unReadCount ?? 0 : 0)
               )
             ],
           ),
@@ -108,29 +109,27 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               SizedBox(width: 1.95.w),
               DropdownButton(
-                  value: selectedSort,
+                  value: ctrl.selectedSort,
                   underline: Container(),
-                  items: ["Newest Post", "Older Post"]
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(
-                              e,
-                              style: TextStyle(
-                                fontSize: 10.0.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ))
-                      .toList(),
+                  items:
+                      ["Today", "Yesterday", "Last week", "1 month", "2 months"]
+                          .map((e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(
+                                  e,
+                                  style: TextStyle(
+                                    fontSize: 10.0.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ))
+                          .toList(),
                   onChanged: (ValueKey) {
                     setState(() {
-                      selectedSort = ValueKey!;
+                      ctrl.selectedSort = ValueKey!;
                     });
-                    if (ValueKey == "Newest Post") {
-                      ctrl.fetchJobs(sort: "desc");
-                    } else {
-                      ctrl.fetchJobs(sort: "asc");
-                    }
+
+                    ctrl.fetchJobs(sort: ValueKey!.toLowerCase());
                   }),
               SizedBox(width: 2.43.w),
               //Icon(Icons.keyboard_arrow_down),
@@ -138,8 +137,10 @@ class _SearchScreenState extends State<SearchScreen> {
               Expanded(child: Container()),
               InkWell(
                 onTap: () {
-                  selectedBottomindex = 2;
-                  notifer.value++;
+                  // selectedBottomindex = 2;
+                  // notifer.value++;
+                  Get.to(() => AdvanceFilterPage(),
+                      transition: Transition.rightToLeft);
                 },
                 child: Container(
                   height: 4.h,

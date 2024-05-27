@@ -50,20 +50,6 @@ class VSucessScreen extends StatelessWidget {
             SizedBox(
               height: 1.4.h,
             ),
-            Container(
-              //height: 2.69.h,
-              //width:61.60.w ,
-              margin: EdgeInsets.symmetric(horizontal: 10.w),
-              child: Text(
-                "Lorem ipsum dolor sit amet, consectetur  adipiscing elit.",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.inter(
-                  fontSize: 11.66.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Color.fromRGBO(121, 134, 159, 1),
-                ),
-              ),
-            ),
           ],
         ),
       ),

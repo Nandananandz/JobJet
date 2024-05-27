@@ -15,6 +15,7 @@ import 'package:jobjet/Screens/Views/ViewScreen.dart';
 import 'package:jobjet/main.dart';
 import 'package:jobjet/misc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 class OnboardCard extends StatefulWidget {
@@ -120,51 +121,66 @@ class _OnboardCardState extends State<OnboardCard> {
 
                 if (Response.statusCode == 200) {
                   var data = json.decode(Response.body);
-                  ;
-                  try {
-                    var gpay = PaymentSheetGooglePay(
-                      merchantCountryCode: "IN",
-                      currencyCode: "IND",
-                    );
 
-                    await Stripe.instance.initPaymentSheet(
-                        paymentSheetParameters: SetupPaymentSheetParameters(
-                      paymentIntentClientSecret: data["message"]
-                          ["client_secret"],
-                      style: ThemeMode.light,
-                      merchantDisplayName: data["full_name"] ?? "user",
-                      googlePay: gpay,
-                    ));
-                    print(data);
-                    await Stripe.instance.presentPaymentSheet();
+                  Razorpay razorpay = Razorpay();
+                  var options = {
+                    'key': 'rzp_test_5T0Juz5yCdvc5U',
+                    'order_id': data["payment_gateway_order_id"]
+                  };
+                  razorpay.on(
+                      Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+                  razorpay.on(
+                      Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+                  razorpay.open(options);
 
-                    loading = false;
-                    Fluttertoast.showToast(
-                        msg: "Payment successful\nPlan activating");
+                  //   try {
+                  //     var gpay = PaymentSheetGooglePay(
+                  //       merchantCountryCode: "IN",
+                  //       currencyCode: "IND",
+                  //     );
 
-                    final submit = await post(
-                        Uri.parse(baseUrl + "checkout/subscribe"),
-                        headers: AuthHeader,
-                        body: json.encode({
-                          "payment_intent_id": data["messaga"]["payment_intent"]
-                        }));
+                  //     await Stripe.instance.initPaymentSheet(
+                  //         paymentSheetParameters: SetupPaymentSheetParameters(
+                  //       paymentIntentClientSecret: data["message"]
+                  //           ["client_secret"],
+                  //       style: ThemeMode.light,
+                  //       merchantDisplayName: data["full_name"] ?? "user",
+                  //       googlePay: gpay,
+                  //     ));
+                  //     print(data);
+                  //     await Stripe.instance.presentPaymentSheet();
 
-                    if (Response.statusCode == 200) {
-                      Fluttertoast.showToast(
-                          msg: "Plan activated successfully ");
+                  //     loading = false;
+                  //     Fluttertoast.showToast(
+                  //         msg: "Payment successful\nPlan activating");
 
-                      Get.off(() => ViewScreen());
-                    } else {
-                      Fluttertoast.showToast(msg: "Plan activation Failed");
-                    }
-                  } catch (e) {
-                    Fluttertoast.showToast(
-                        msg: 'Please retry your payment failed');
-                    setState(() {
-                      loading = false;
-                    });
-                    print(e.toString());
-                  }
+                  //     final submit = await post(
+                  //         Uri.parse(baseUrl + "checkout/subscribe"),
+                  //         headers: AuthHeader,
+                  //         body: json.encode({
+                  //           "payment_intent_id": data["messaga"]["payment_intent"]
+                  //         }));
+
+                  //     if (Response.statusCode == 200) {
+                  //       Fluttertoast.showToast(
+                  //           msg: "Plan activated successfully ");
+
+                  //       Get.off(() => ViewScreen());
+                  //     } else {
+                  //       Fluttertoast.showToast(msg: "Plan activation Failed");
+                  //     }
+                  //   } catch (e) {
+                  //     Fluttertoast.showToast(
+                  //         msg: 'Please retry your payment failed');
+                  //     setState(() {
+                  //       loading = false;
+                  //     });
+                  //     print(e.toString());
+                  //   }
+                } else {
+                  loading = false;
+                  setState(() {});
+                  Fluttertoast.showToast(msg: "Payment Failed, Contact admin");
                 }
               } else {
                 final Response = await post(
@@ -216,5 +232,44 @@ class _OnboardCardState extends State<OnboardCard> {
         ],
       ),
     );
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    print(response.data);
+    print("body");
+    final Response =
+        await post(Uri.parse(baseUrl + "checkout/razorpay/order/verify"),
+            headers: AuthHeader,
+            body: json.encode({
+              "payment_order_id": response.orderId,
+              "payment_id": response.paymentId,
+              "payment_signature": response.signature
+            }));
+    print(Response.statusCode);
+    print(Response.body);
+    if (Response.statusCode == 200) {
+      Fluttertoast.showToast(msg: "Plan activated successfully ");
+      setState(() {
+        loading = false;
+      });
+
+      Get.off(() => ViewScreen());
+    } else {
+      setState(() {
+        loading = false;
+        Fluttertoast.showToast(msg: "Plan Activation is failed");
+      });
+    }
+
+    // Do something when payment succeeds
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    setState(() {
+      loading = false;
+    });
+    Fluttertoast.showToast(msg: "Payment Failed");
+
+    // Do something when payment fails
   }
 }

@@ -77,63 +77,65 @@ class _CategoryViewState extends State<CategoryView> {
         SizedBox(
           height: 20,
         ),
-        Expanded(
-            child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 4.2.w, vertical: 10),
-          alignment: Alignment.topLeft,
-          child: SingleChildScrollView(
-            child: Wrap(
-              runSpacing: 8,
-              spacing: 8,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              alignment: WrapAlignment.start,
-              runAlignment: WrapAlignment.start,
-              children: [
-                for (var data in ctrl.fullCategory)
-                  if (data["name"]
-                          .toString()
-                          .toUpperCase()
-                          .contains(searchText.text.toUpperCase()) ||
-                      searchText.text == "")
-                    InkWell(
-                        onTap: () {
-                          Get.to(() => CategoryPostList(
-                                CategoryData: data,
-                              ));
-                        },
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xffF3F5FF)),
-                            width: 28.78.w,
-                            height: 28.78.w,
-                            padding: EdgeInsets.all(6),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 12.36.w,
-                                  width: 12.36.w,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: Image.network(data["image"]["url"]),
+        Expanded(child: GetBuilder<JobController>(builder: (context) {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 4.2.w, vertical: 10),
+            alignment: Alignment.topLeft,
+            child: SingleChildScrollView(
+              child: Wrap(
+                runSpacing: 8,
+                spacing: 8,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                alignment: WrapAlignment.start,
+                runAlignment: WrapAlignment.start,
+                children: [
+                  for (var data in ctrl.fullCategory)
+                    if (data["name"]
+                            .toString()
+                            .toUpperCase()
+                            .contains(searchText.text.toUpperCase()) ||
+                        searchText.text == "")
+                      InkWell(
+                          onTap: () {
+                            Get.to(() => CategoryPostList(
+                                  CategoryData: data,
+                                ));
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color(0xffF3F5FF)),
+                              width: 28.78.w,
+                              height: 28.78.w,
+                              padding: EdgeInsets.all(6),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 12.36.w,
+                                    width: 12.36.w,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child:
+                                          Image.network(data["image"]["url"]),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(data["name"],
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 9.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xFF121B54)))
-                              ],
-                            )))
-              ],
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(data["name"],
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 9.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xFF121B54)))
+                                ],
+                              )))
+                ],
+              ),
             ),
-          ),
-        )),
+          );
+        })),
         SizedBox(
           height: 100,
         )

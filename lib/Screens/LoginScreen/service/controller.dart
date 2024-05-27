@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:jobjet/Screens/LoginScreen/Component/VSucessScreen.dart';
 import 'package:jobjet/Screens/LoginScreen/Component/VerificationScreen.dart';
 import 'package:jobjet/Screens/Onboarding/OnboardingScreen.dart';
@@ -16,6 +17,8 @@ class AuthenticationController extends GetxController {
   bool loading = false;
   TextEditingController otpText = TextEditingController();
   DateTime resendController = DateTime.now();
+  PhoneNumber? countryCode =
+      PhoneNumber(dialCode: "+971", isoCode: "AE", phoneNumber: "");
 
   void sendOTP() async {
     loading = true;
@@ -25,6 +28,7 @@ class AuthenticationController extends GetxController {
         body: {"mobile": phoneNumber});
     loading = false;
     print(json.encode({"mobile": phoneNumber}));
+
     update();
     if (Response.statusCode == 200) {
       resendController = resendController.add(Duration(seconds: 30));
@@ -53,6 +57,7 @@ class AuthenticationController extends GetxController {
       pref.setString("TOKEN", data["token"]);
       pref.setString("PHONE", phoneNumber);
       token = data["token"];
+      print(data);
       AuthHeader = {
         'Content-Type': 'application/json',
         "Authorization": "Bearer $token",
@@ -60,7 +65,7 @@ class AuthenticationController extends GetxController {
       };
       update();
       Get.to(() => VSucessScreen(), transition: Transition.rightToLeft);
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(Duration(seconds: 2));
       final log =
           await get(Uri.parse(baseUrl + "auth/profile"), headers: AuthHeader);
 

@@ -9,6 +9,7 @@ import 'package:jobjet/Screens/Views/components/FavoratieView.dart';
 import 'package:jobjet/Screens/Views/components/Searchbar.dart';
 import 'package:jobjet/Screens/Views/components/Sidebar.dart';
 import 'package:jobjet/Screens/Views/components/ViewDetailCard.dart';
+import 'package:jobjet/Screens/Views/components/shimmerLoading.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -139,20 +140,28 @@ class _ViewScreenState extends State<ViewScreen> {
                             child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              if (_.JobList.isNotEmpty)
-                                for (var data in _.JobList)
-                                  ViewDetailCard(
-                                    jobData: data,
-                                  )
-                              else
-                                Container(
-                                  height: 80.h,
-                                  alignment: Alignment.center,
-                                  child: Text("No Post",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xFF121B54))),
+                              if (!_.loading)
+                                if (_.JobList.isNotEmpty)
+                                  for (var data in _.JobList)
+                                    ViewDetailCard(
+                                      jobData: data,
+                                    )
+                                else
+                                  Container(
+                                    height: 80.h,
+                                    alignment: Alignment.center,
+                                    child: Text("No Post",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xFF121B54))),
+                                  ),
+                              if (_.loading)
+                                Column(
+                                  children: [
+                                    for (var data in [1, 2, 3, 4, 5])
+                                      ShimmerLoadingHomeCard()
+                                  ],
                                 )
                             ],
                           ),

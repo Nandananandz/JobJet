@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:jobjet/Screens/Views/Service/Controller.dart';
 import 'package:jobjet/Screens/Views/components/ViewDetailCard.dart';
+import 'package:jobjet/Screens/Views/components/shimmerLoading.dart';
 import 'package:jobjet/main.dart';
 import 'package:jobjet/misc.dart';
 import 'package:sizer/sizer.dart';
@@ -27,14 +28,21 @@ class _CategoryPostListState extends State<CategoryPostList> {
     loadJobs();
   }
 
+  bool loading = false;
   List JobList = [];
+
   loadJobs() async {
+    setState(() {
+      loading = true;
+    });
     final Response = await get(
         Uri.parse(
           baseUrl + "jobs/subscribed?categories=${widget.CategoryData["id"]}",
         ),
         headers: AuthHeader);
-
+    setState(() {
+      loading = false;
+    });
     print(Response.body);
     print(Response.statusCode);
     if (Response.statusCode == 200) {
@@ -90,19 +98,20 @@ class _CategoryPostListState extends State<CategoryPostList> {
             height: 8,
             color: Colors.grey.shade300.withOpacity(.5),
           ),
-          if (JobList.isNotEmpty)
-            Expanded(
-                child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  for (var data in JobList)
-                    ViewDetailCard(
-                      jobData: data,
-                    ),
-                ],
-              ),
-            ))
-          else
+          if (JobList.isNotEmpty && !loading)
+            Expanded(child: GetBuilder<JobController>(builder: (context) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    for (var data in JobList)
+                      ViewDetailCard(
+                        jobData: data,
+                      ),
+                  ],
+                ),
+              );
+            }))
+          else if (!loading)
             Container(
               height: 80.h,
               alignment: Alignment.center,
@@ -111,6 +120,16 @@ class _CategoryPostListState extends State<CategoryPostList> {
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                       color: Color(0xFF121B54))),
+            ),
+          if (loading)
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    for (var data in [1, 2, 3, 4, 5]) ShimmerLoadingHomeCard()
+                  ],
+                ),
+              ),
             )
         ],
       ),

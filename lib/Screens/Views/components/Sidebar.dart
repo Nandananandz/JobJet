@@ -5,9 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:jobjet/Screens/LoginScreen/Component/LoginScreen.dart';
 import 'package:jobjet/Screens/PlanSelection/PlanSelectionScreen.dart';
+import 'package:jobjet/Screens/Views/Service/Controller.dart';
 import 'package:jobjet/Screens/Views/ViewScreen.dart';
 import 'package:jobjet/Screens/Views/components/NotificationScreen.dart';
 import 'package:jobjet/Screens/Views/components/PrivacyPolicyScreen.dart';
+import 'package:jobjet/misc.dart';
+import 'package:jobjet/utlis/logoutPopUp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -16,7 +19,7 @@ int selectedSideMenu = 0;
 class SideBar extends StatelessWidget {
   ValueNotifier notifier;
   SideBar({super.key, required this.notifier});
-
+  JobController jctrl = Get.put(JobController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,59 +42,72 @@ class SideBar extends StatelessWidget {
           _menuCard(
               "Profile",
               Image.asset(
+                width: 6.w,
                 "assets/iconProfile.png",
-                color: Colors.white.withOpacity(.5),
+                color: Color(0xff28B2FB),
               ),
               0,
               selectedSideMenu),
           _menuCard(
               "Notifications",
-              Image.asset(
-                "assets/notification.png",
-                color: Colors.white.withOpacity(.5),
-              ),
+              myAppBarIcon2(jctrl.notifications != null
+                  ? jctrl.notifications!.unReadCount ?? 0
+                  : 0),
               2,
               selectedSideMenu),
           _menuCard(
               "Terms and conditions",
               Image.asset(
+                width: 6.w,
                 "assets/terms abd conditions.png",
-                color: Colors.white.withOpacity(.5),
+                color: Color(0xff595F87),
               ),
               3,
               selectedSideMenu),
           _menuCard(
               "Subscriptions",
               Image.asset(
+                width: 6.w,
                 "assets/subscription.png",
-                color: Colors.white.withOpacity(.5),
+                color: Color(0xff595F87),
               ),
               4,
               selectedSideMenu),
           _menuCard(
               "Share App",
               Image.asset(
+                width: 6.w,
                 "assets/share app.png",
-                color: Colors.white.withOpacity(.5),
+                color: Color(0xff595F87),
               ),
               5,
               selectedSideMenu),
           _menuCard(
               "Help And Suppport",
-              Image.asset(
-                "assets/help and support.png",
-                color: Colors.white.withOpacity(.5),
+              SizedBox(
+                width: 6.w,
+                child: Image.asset(
+                  "assets/help and support.png",
+                  color: Color(0xff595F87),
+                ),
               ),
               5,
               selectedSideMenu),
           Expanded(child: Container()),
           InkWell(
               onTap: () async {
-                SharedPreferences preferences =
-                    await SharedPreferences.getInstance();
-                preferences.setString("STATUS", "OUT");
-                Fluttertoast.showToast(msg: "Logout succesfully");
-                Get.offAll(LoginScreen(), transition: Transition.rightToLeft);
+                showDialog(
+                    context: context,
+                    builder: (ctx) => Container(
+                        alignment: Alignment.center,
+                        child: Material(
+                            color: Colors.transparent,
+                            child: LogoutAlertDialog())));
+                // SharedPreferences preferences =
+                //     await SharedPreferences.getInstance();
+                // preferences.setString("STATUS", "OUT");
+                // Fluttertoast.showToast(msg: "Logout succesfully");
+                // Get.offAll(LoginScreen(), transition: Transition.rightToLeft);
               },
               child: Image.asset("assets/logout.png")),
           SizedBox(
@@ -143,7 +159,9 @@ class SideBar extends StatelessWidget {
               style: GoogleFonts.poppins(
                   fontSize: 11.66.sp,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white.withOpacity(.5)),
+                  color: (value == current)
+                      ? Colors.white
+                      : Colors.white.withOpacity(.5)),
             )
           ],
         ),

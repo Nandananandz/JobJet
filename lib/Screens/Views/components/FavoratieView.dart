@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jobjet/Screens/Views/Service/Controller.dart';
+import 'package:jobjet/Screens/Views/components/ViewDetailCard.dart';
 import 'package:sizer/sizer.dart';
 
 class FavoriteView extends StatelessWidget {
@@ -7,6 +10,7 @@ class FavoriteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    JobController ctrl = Get.put(JobController());
     return Column(
       children: [
         SizedBox(
@@ -39,16 +43,25 @@ class FavoriteView extends StatelessWidget {
           height: 1,
           color: Colors.black12,
         ),
-        Expanded(
-            child: Center(
-                child: Text(
-          "No Favorites",
-          style: GoogleFonts.poppins(
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF121B54)),
-        ))),
-        //  Expanded(child: SingleChildScrollView(child: Column()))
+        if (ctrl.profileData["favourites"].length == 0)
+          Expanded(
+              child: Center(
+                  child: Text(
+            "No Favorites",
+            style: GoogleFonts.poppins(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF121B54)),
+          )))
+        else
+          Expanded(
+              child: SingleChildScrollView(
+                  child: Column(
+            children: [
+              for (var data in ctrl.profileData["favourites"])
+                ViewDetailCard(jobData: data)
+            ],
+          )))
       ],
     );
   }

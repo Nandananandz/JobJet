@@ -46,6 +46,13 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     ),
                   ),
                 ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
                 Container(
                   //height: 5.39.h,
                   // width: 26.32.w,
@@ -78,11 +85,37 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               child: SingleChildScrollView(
                   child: Column(
                 children: [
-                  Text(
-                    policy,
-                    style: GoogleFonts.nunitoSans(
-                        fontSize: 11.66.sp, fontWeight: FontWeight.w600),
-                  )
+                  bodyText(
+                      "Welcome to the Privacy Policy for the UAE Jobseeker App. This document outlines how we collect, use, and protect your personal information as you use our mobile application. Our app caters to UAE job seekers, providing a platform to view job listings without utilizing user data for marketing purposes."),
+                  bodyHead("Information Collection:"),
+                  bodyText(
+                      "When you install and use the UAE Jobseeker App, we collect basic information such as your name, email address, Job position  and device information for account creation and personalized job recommendations. We do not use this data for marketing activities."),
+                  bodyHead("Information Usage:"),
+                  bodyText(
+                      "The information we collect is strictly used to enhance your job search experience within the app. Your personal data is not shared with third parties for marketing purposes."),
+                  bodyHead("Information Sharing:"),
+                  bodyText(
+                      "We do not share your personal information with any third parties for marketing purposes. Your data is securely stored on our servers and is only accessible to authorized personnel for app-related functionalities."),
+                  bodyHead("Data Security:"),
+                  bodyText(
+                      "We prioritize the security of your personal information and have implemented stringent measures to safeguard it from unauthorized access, disclosure, or alteration. Your data is encrypted during transmission and securely stored on our servers."),
+                  bodyHead("User Rights:"),
+                  bodyText(
+                      "As a user of the UAE Jobseeker App, you have the right to access, update, or delete your personal information stored within the app. Your data privacy is important to us, and we are committed to protecting it."),
+                  bodyHead("Cookies and Tracking Technologies:"),
+                  bodyText(
+                      "Our app does not utilize cookies or tracking technologies for marketing purposes. Any data collected is solely for app functionality and improving user experience within the job search process."),
+                  bodyHead("Changes to Privacy Policy:"),
+                  bodyText(
+                      "We may update our Privacy Policy to reflect changes in our data practices or legal requirements. Any updates will be communicated through the app or via email. By continuing to use the app, you agree to the updated Privacy Policy."),
+                  bodyHead("Contact Us:"),
+                  bodyText(
+                      "If you have any questions or feedback regarding our Privacy Policy or data practices, please contact us at [contact email]."),
+                  SizedBox(
+                    height: 1.5.h,
+                  ),
+                  bodyText(
+                      "By using the UAE Jobseeker App, you agree to the terms outlined in this Privacy Policy. We are dedicated to maintaining the privacy and security of your personal information while providing a seamless job search experience. Thank you for choosing our app."),
                 ],
               )),
             ))
@@ -91,6 +124,32 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       ),
     );
   }
+}
+
+bodyHead(String text) {
+  return Container(
+    margin: EdgeInsets.only(
+      top: 1.5.h,
+    ),
+    alignment: Alignment.topLeft,
+    child: Text(
+      text,
+      style: GoogleFonts.nunitoSans(
+          fontSize: 11.66.sp, fontWeight: FontWeight.w600),
+    ),
+  );
+}
+
+bodyText(String text) {
+  return Container(
+    margin: EdgeInsets.only(top: 1.w),
+    alignment: Alignment.topLeft,
+    child: Text(
+      text,
+      style: GoogleFonts.nunitoSans(
+          fontSize: 11.66.sp, fontWeight: FontWeight.w400),
+    ),
+  );
 }
 
 String policy =

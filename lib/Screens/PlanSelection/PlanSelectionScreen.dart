@@ -53,6 +53,8 @@ class _PlanSelectionScreenState extends State<PlanSelectionScreen> {
     if (Response.statusCode == 200) {
       var js = json.decode(Response.body);
       planList = js["data"];
+
+      print(planList);
       setState(() {});
     }
   }

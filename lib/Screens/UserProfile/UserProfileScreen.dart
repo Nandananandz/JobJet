@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jobjet/Screens/UserProfile/components/CompleteProfileCard.dart';
 import 'package:jobjet/Screens/UserProfile/components/ProfileViewScreen.dart';
-import 'package:jobjet/Screens/UserProfile/components/UserDetailCard.dart';
+import 'package:jobjet/Screens/UserProfile/components/UpdateProfile.dart';
 import 'package:jobjet/Screens/Views/Service/Controller.dart';
 import 'package:sizer/sizer.dart';
 
@@ -21,7 +21,7 @@ class UserProfileScreen extends StatelessWidget {
         InkWell(
           onTap: () {
             Get.to(() => UserDetailScreen(
-                  userData: profileData,
+                  userData: profileData["profile"],
                 ));
           },
           child: Container(

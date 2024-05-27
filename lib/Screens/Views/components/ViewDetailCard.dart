@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,15 +42,16 @@ class ViewDetailCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 4.2.w),
               child: Row(
                 children: [
-                  SizedBox(
-                    height: 12.36.w,
-                    width: 12.36.w,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.network(
-                          jobData["categories"][0]["image"]["url"]),
+                  if (jobData["categories"] != null)
+                    SizedBox(
+                      height: 12.36.w,
+                      width: 12.36.w,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(
+                            jobData["categories"][0]["image"]["url"]),
+                      ),
                     ),
-                  ),
                   SizedBox(
                     width: 2.89.w,
                   ),
@@ -96,29 +99,49 @@ class ViewDetailCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  if (false)
-                    InkWell(
-                      onTap: () async {
-                        final Response = await post(
-                            Uri.parse(baseUrl + "users/favourites/attach"),
-                            headers: AuthHeader,
-                            body: json.encode({
-                              "favourites": [jobData["id"]]
-                            }));
+                  InkWell(
+                    onTap: () async {
+                      String method = ctrl.checkInFavorite(jobData["id"])
+                          ? "detach"
+                          : "attach";
+                      final Response = await post(
+                          Uri.parse(baseUrl + "users/favourites/$method"),
+                          headers: AuthHeader,
+                          body: json.encode({
+                            "favourites": [jobData["id"]]
+                          }));
 
-                        print(Response.body);
-                        print(Response.statusCode);
+                      print(Response.body);
+                      print(ctrl.checkInFavorite(jobData["id"]));
+                      print(Response.statusCode);
+                      if (!ctrl.checkInFavorite(jobData["id"])) {
+                        ctrl.profileData["favourites"].add(jobData);
+                        print(ctrl.profileData);
+                      } else {
+                        //
 
-                        if (Response.statusCode == 200) {
-                          ctrl.fetchProfile();
+                        for (var data in ctrl.profileData["favourites"]) {
+                          if (data["id"] == jobData["id"]) {
+                            ctrl.profileData["favourites"].remove(data);
+                            break;
+                          }
                         }
-                      },
-                      child: Icon(
-                        Icons.favorite_border_rounded,
-                        color: Colors.orange,
-                        size: 25,
-                      ),
-                    )
+                        print(ctrl.profileData);
+                      }
+                      ctrl.update();
+
+                      // if (Response.statusCode == 200) {
+                      //   ctrl.fetchProfile();
+                      // }
+                    },
+                    child: Icon(
+                      (ctrl.checkInFavorite(jobData["id"]))
+                          ? Icons.favorite
+                          : Icons.favorite_border_rounded,
+                      color: Colors.orange,
+                      size: 25,
+                    ),
+                  )
                 ],
               ),
             ),
@@ -130,7 +153,7 @@ class ViewDetailCard extends StatelessWidget {
                 colorClickableText: Color(0xFF000000),
                 trimMode: TrimMode.Line,
                 trimCollapsedText: 'see more',
-                trimExpandedText: '..see less',
+                trimExpandedText: '',
                 moreStyle: GoogleFonts.nunitoSans(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w600,
@@ -148,14 +171,20 @@ class ViewDetailCard extends StatelessWidget {
               ),
             ),
             if (jobData["image"] != null)
-              SizedBox(
-                height: 38.46.h,
-                width: 100.w,
-                child: Image.network(
-                  jobData["image"]["url"],
-                  fit: BoxFit.fill,
-                ),
-              )
+              CarouselSlider(
+                options: CarouselOptions(viewportFraction: 1, autoPlay: true),
+                items: [
+                  for (var data in jobData["image"])
+                    Container(
+                      height: 41.46.h,
+                      width: 99.27.w,
+                      child: Image.network(
+                        data["original"],
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                ],
+              ),
           ],
         ),
       ),

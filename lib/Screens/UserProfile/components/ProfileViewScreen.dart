@@ -21,7 +21,11 @@ class ProfileViewScreen extends StatelessWidget {
             _text("Job Category", profile["job_category"]),
             _text("Experience", profile["total_experience"]),
             _text("Current Job Title", profile["current_job_position"]),
-            _text("Resume Link", profile["resume"]["url"]),
+            _text(
+                "Resume Link",
+                (profile["resume"] != null)
+                    ? ""
+                    : profile["resume"]["url"] ?? ""),
           ],
         ),
       ),
