@@ -21,14 +21,42 @@ class OnboardingScreen extends StatelessWidget {
             CarouselSlider(
                 items: [
                   for (var data in pctrl.PlanList)
-                    OnboardCard(
-                      planData: data,
-                      index: pctrl.PlanList.indexOf(data),
+                    Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 68.28.w,
+                            height: 17,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF161F59).withOpacity(.7),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(17),
+                                  topRight: Radius.circular(17)),
+                            ),
+                          ),
+                          Expanded(
+                            child: OnboardCard(
+                              planData: data,
+                              index: pctrl.PlanList.indexOf(data),
+                            ),
+                          ),
+                          Container(
+                            width: 68.28.w,
+                            height: 17,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF161F59).withOpacity(.7),
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(17),
+                                  bottomRight: Radius.circular(17)),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                 ],
                 options: CarouselOptions(
                     viewportFraction: .8,
-                    height: 59.h,
+                    height: 63.h,
                     enlargeCenterPage: true))
           ],
         );

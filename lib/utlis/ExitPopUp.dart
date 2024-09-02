@@ -1,16 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jobjet/Screens/LoginScreen/Component/LoginScreen.dart';
-import 'package:jobjet/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
-class LogoutAlertDialog extends StatelessWidget {
-  LogoutAlertDialog({super.key});
+class ExitPopUp extends StatelessWidget {
+  const ExitPopUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +40,7 @@ class LogoutAlertDialog extends StatelessWidget {
               right: 10,
               top: 19.76.h,
               child: Text(
-                "Are you sure you want to logout?",
+                "Are you sure you want to exit?",
                 style: GoogleFonts.poppins(
                     fontSize: 12.sp, fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
@@ -59,14 +54,14 @@ class LogoutAlertDialog extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () async {
-                      Navigator.pop(context);
-                      SharedPreferences preferences =
-                          await SharedPreferences.getInstance();
-                      preferences.setString("STATUS", "OUT");
-                      token = "";
-                      Fluttertoast.showToast(msg: "Logout succesfully");
-                      Get.offAll(LoginScreen(),
-                          transition: Transition.rightToLeft);
+                      exit(0);
+                      // Navigator.pop(context);
+                      // SharedPreferences preferences =
+                      //     await SharedPreferences.getInstance();
+                      // preferences.setString("STATUS", "OUT");
+                      // Fluttertoast.showToast(msg: "Logout succesfully");
+                      // Get.offAll(LoginScreen(),
+                      //     transition: Transition.rightToLeft);
                     },
                     child: Container(
                       width: 28.89.w,

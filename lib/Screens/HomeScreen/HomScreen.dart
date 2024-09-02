@@ -102,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 5.h,
                 ),
                 InkWell(
+                  borderRadius: BorderRadius.circular(30),
                   onTap: () {
                     if (selectedIndex < 2) {
                       selectedIndex = selectedIndex + 1;

@@ -48,7 +48,8 @@ class _PlanSelectionScreenState extends State<PlanSelectionScreen> {
   List planList = [];
 
   loadPlans() async {
-    final Response = await get(Uri.parse(baseUrl + "subscriptions/"));
+    final Response = await get(
+        Uri.parse(baseUrl + "subscriptions?currency=${currencyCode}"));
 
     if (Response.statusCode == 200) {
       var js = json.decode(Response.body);
@@ -128,7 +129,7 @@ class _PlanSelectionScreenState extends State<PlanSelectionScreen> {
             //width: 30.67.w,
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: Text(
-              "Your Premium plan Expired ${formateTime(jctrl.profileData["user_subscriptions"][0]["end_date"])}",
+              "Your premium plan will expire on ${formateTime(jctrl.profileData["user_subscriptions"][0]["end_date"])}",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 11.66.sp,

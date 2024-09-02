@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:jobjet/Screens/Views/components/NoPlanpopUp.dart';
 import 'package:jobjet/main.dart';
 import 'package:jobjet/misc.dart';
 import 'package:lit_relative_date_time/controller/relative_date_format.dart';
@@ -18,8 +19,9 @@ class JobController extends GetxController {
   var fullCategory;
   List jobCategory = [];
   bool loading = false;
-  String selectedSort = "Today";
+  String selectedSort = "All Jobs";
 
+  bool isAppOpen = false;
   TextEditingController nameController = TextEditingController();
   TextEditingController Resume = TextEditingController();
   TextEditingController jobtype = TextEditingController();
@@ -34,9 +36,9 @@ class JobController extends GetxController {
   TextEditingController Jsort = TextEditingController();
   TextEditingController Tsort = TextEditingController();
 
-  fetchJobs({String sort = "today", String search = ""}) async {
+  fetchJobs({String sort = "All Jobs", String search = ""}) async {
     String params = "";
-
+    if (sort == "All Jobs") sort = "";
     if (search != "") params = params + "&search=$search";
     print(baseUrl +
         "jobs/subscribed?date_filter=${sort.replaceAll(" ", "-")}" +
@@ -59,11 +61,18 @@ class JobController extends GetxController {
       // if (sort == "desc")
       //   JobList.sort((a, b) => b["created_at"].compareTo(a["created_at"]));
     }
+
+    if (!isAppOpen) {
+      isAppOpen = true;
+      await Future.delayed(Duration(seconds: 2));
+      noSubscriptionPopUp();
+      update();
+    }
   }
 
   fetchSortJob({String search = ""}) async {
     String params = "";
-
+    String sort = selectedSort.toString().toLowerCase();
     if (Csort.text.isNotEmpty) {
       params = params + "&" + "categories=${Csort.text}";
     }
@@ -79,15 +88,15 @@ class JobController extends GetxController {
     if (Jsort.text.isNotEmpty) {
       params = params + "&" + "joining_time=${Jsort.text.replaceAll(" ", "-")}";
     }
-
+    if (sort == "all jobs") sort = "";
     if (search != "") params = params + "&search=$search";
     loading = true;
     update();
-    print(baseUrl + "jobs/subscribed?date_filter=$selectedSort" + params);
+    print(baseUrl + "jobs/subscribed?date_filter=$sort" + params);
     final Response = await get(
         Uri.parse(
           baseUrl +
-              "jobs/subscribed?date_filter=${selectedSort.replaceAll(" ", "-")}" +
+              "jobs/subscribed?date_filter=${sort.replaceAll(" ", "-")}" +
               params,
         ),
         headers: AuthHeader);
@@ -125,8 +134,6 @@ class JobController extends GetxController {
 
   String idToLocation(int id) {
     for (var data in fullLocation) {
-      print(data);
-      print(id);
       if (data["id"] == id) {
         return data["name"];
       }
@@ -135,7 +142,8 @@ class JobController extends GetxController {
   }
 
   loadCategory() async {
-    final Response = await get(Uri.parse(baseUrl + "categories"), headers: {
+    final Response =
+        await get(Uri.parse(baseUrl + "categories?limit=40"), headers: {
       'Content-Type': 'application/json',
       "Authorization": "Bearer $token",
       "Vary": "Accept"
@@ -144,13 +152,12 @@ class JobController extends GetxController {
     if (Response.statusCode == 200) {
       var js = json.decode(Response.body);
       fullCategory = js["data"];
-
       for (var data in fullCategory) jobCategory.add(data["name"]);
     }
   }
 
   loadLocation() async {
-    final Response = await get(Uri.parse(baseUrl + "locations"), headers: {
+    final Response = await get(Uri.parse(baseUrl + "locations?limit=40"), headers: {
       'Content-Type': 'application/json',
       "Authorization": "Bearer $token",
       "Vary": "Accept"
@@ -192,19 +199,18 @@ class JobController extends GetxController {
       notifications!.unReadCount = notifications!.unReadCount! + 1;
       update();
     }, onReadAll: () {
-     
       notifications!.unReadCount = 0;
       update();
     });
   }
 
+  bool isProfileUpdateLoad = false;
   updateProfile() async {
-    final Response = await post(Uri.parse(baseUrl + "users/profile/update/"),
-        headers: {
-          'Content-Type': 'application/json',
-          "Authorization": "Bearer $token",
-          "Vary": "Accept"
-        },
+    isProfileUpdateLoad = true;
+    print("updating profile");
+    update();
+    final Response = await post(Uri.parse(baseUrl + "users/profile/update"),
+        headers: AuthHeader,
         body: json.encode({
           "full_name": nameController.text,
           "industry": jobtype.text,
@@ -213,20 +219,29 @@ class JobController extends GetxController {
           "current_job_position": currentJobTitle.text,
           "resume": {"url": Resume.text, "thumnail": "www.example.com"}
         }));
-    print(json.encode({
-      "full_name": nameController.text,
-      "industry": jobtype.text,
-      "total_experience": experience.text,
-      "job_category": category.text,
-      "current_job_position": currentJobTitle.text,
-      "resume": {"url": Resume.text, "thumnail": "www.example.com"}
-    }));
+    isProfileUpdateLoad = false;
+    update();
+    // print(json.encode({
+    //   "full_name": nameController.text,
+    //   "industry": jobtype.text,
+    //   "total_experience": experience.text,
+    //   "job_category": category.text,
+    //   "current_job_position": currentJobTitle.text,
+    //   "resume": {"url": Resume.text, "thumnail": "www.example.com"}
+    // }));
     print(Response.statusCode);
     print(Response.body);
     if (Response.statusCode == 200) {
       Get.back();
       Fluttertoast.showToast(msg: "Profile Updated");
       fetchProfile();
+    }
+  }
+
+  noSubscriptionPopUp() {
+    if (DateTime.now().isAfter(
+        DateTime.parse(profileData["user_subscriptions"][0]["end_date"]))) {
+      Get.dialog(NoPlanPopUp());
     }
   }
 

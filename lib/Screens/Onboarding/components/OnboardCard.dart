@@ -14,8 +14,11 @@ import 'package:jobjet/Screens/Onboarding/Service/controller.dart';
 import 'package:jobjet/Screens/Views/ViewScreen.dart';
 import 'package:jobjet/main.dart';
 import 'package:jobjet/misc.dart';
+import 'package:jobjet/utlis/convertCurrency.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class OnboardCard extends StatefulWidget {
@@ -69,7 +72,7 @@ class _OnboardCardState extends State<OnboardCard> {
             //height: 2.24..h,
             //width: 25.36.w,
             child: Text(
-              "\$${widget.planData["price"]}",
+              "${convertCurrency()}${widget.planData["price"]}",
               style: GoogleFonts.poppins(
                 fontSize: 30.sp,
                 fontWeight: FontWeight.w700,
@@ -77,12 +80,11 @@ class _OnboardCardState extends State<OnboardCard> {
               ),
             ),
           ),
-          SizedBox(height: 5.28.h),
+          SizedBox(height: 3.28.h),
           SizedBox(
             // height: 30.85.h,
             //width: 20.11.w,
-            child: Text(
-                "For ${widget.planData["interval_count"]} ${widget.planData["interval"]}",
+            child: Text("For ${widget.planData["interval"]}",
                 style: GoogleFonts.poppins(
                     fontSize: 13.66,
                     fontWeight: FontWeight.w400,
@@ -96,12 +98,12 @@ class _OnboardCardState extends State<OnboardCard> {
             child: Text("${widget.planData["description"]}",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.nunitoSans(
-                    fontSize: 9.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w600,
                     color: Color.fromRGBO(123, 136, 179, 1))),
           ),
           SizedBox(
-            height: 4.07.h,
+            height: 3.07.h,
           ),
           InkWell(
             onTap: () async {
@@ -109,23 +111,30 @@ class _OnboardCardState extends State<OnboardCard> {
               //  Get.to(() => ViewScreen(), transition: Transition.rightToLeft);
 
               //   final
+              SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+              String number = preferences.getString("PHONE") ?? "+919999999999";
               setState(() {
                 loading = true;
               });
               if (widget.planData["is_trial"] != 1) {
                 final Response = await post(
-                    Uri.parse(baseUrl + "checkout/create-payment-intent"),
+                    Uri.parse(baseUrl + "checkout/razorpay/order/generate"),
                     headers: AuthHeader,
                     body: json
                         .encode({"subscription_id": widget.planData["id"]}));
-
+                print(Response.body);
+                print(Response.statusCode);
                 if (Response.statusCode == 200) {
                   var data = json.decode(Response.body);
 
                   Razorpay razorpay = Razorpay();
                   var options = {
-                    'key': 'rzp_test_5T0Juz5yCdvc5U',
-                    'order_id': data["payment_gateway_order_id"]
+                    'key': (true)
+                        ? "rzp_test_w2K3h5VhCWb5aq"
+                        : 'rzp_live_Krw5ZVvhAlE3Hs',
+                    'order_id': data["payment_gateway_order_id"],
+                    'prefill': {'contact': number, 'email': "test@gmail.com"}
                   };
                   razorpay.on(
                       Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);

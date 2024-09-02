@@ -19,11 +19,11 @@ class ProfileViewScreen extends StatelessWidget {
             _text("Full Name", profile["full_name"]),
             _text("Job Type", profile["industry"]),
             _text("Job Category", profile["job_category"]),
-            _text("Experience", profile["total_experience"]),
+            _text("Total Years of Experience ", profile["total_experience"]),
             _text("Current Job Title", profile["current_job_position"]),
             _text(
                 "Resume Link",
-                (profile["resume"] != null)
+                (profile["resume"] == null)
                     ? ""
                     : profile["resume"]["url"] ?? ""),
           ],
@@ -33,7 +33,7 @@ class ProfileViewScreen extends StatelessWidget {
   }
 }
 
-_text(
+Widget _text(
   String title,
   String data,
 ) {

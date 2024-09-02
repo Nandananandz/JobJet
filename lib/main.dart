@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:country_ip/country_ip.dart';
 import 'package:engagespot_sdk/engagespot_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -20,38 +21,39 @@ String? userID;
 String? login;
 String baseUrl = "https://jobhunter.site/api/";
 var profileData;
+String currencyCode = "INR";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences pref = await SharedPreferences.getInstance();
- 
+  final countryIpResponse = await CountryIp.find();
+  print(countryIpResponse!.countryCode);
+  currencyCode = (countryIpResponse!.countryCode == "IN") ? "INR" : "USD";
   token = pref.getString("TOKEN");
   userID = pref.getString("USERID");
   login = pref.getString("STATUS");
 
   Engagespot.initSdk(
-      isDebug: true,
-      apiKey: "n76ud46qb5yq8zhlg0l9",
-     );
+    isDebug: true,
+    apiKey: "n76ud46qb5yq8zhlg0l9",
+  );
 
+  AuthHeader = {
+    'Content-Type': 'application/json',
+    "Authorization": "Bearer $token",
+    "Vary": "Accept"
+  };
 
-  AuthHeader =  {
-  'Content-Type': 'application/json',
-  "Authorization": "Bearer $token",
-  "Vary": "Accept"
-};
-  
-  if (login == "IN" ) {
+  if (login == "IN") {
     final Response =
         await get(Uri.parse(baseUrl + "auth/profile"), headers: AuthHeader);
-print(Response.body);
-print(Response.statusCode);
-print(AuthHeader);
+    print(Response.body);
+    print(Response.statusCode);
+    print(AuthHeader);
     if (Response.statusCode == 200) {
-
-      try{
-      profileData = json.decode(Response.body);}
-      catch(e){
- login = "OUT";
+      try {
+        profileData = json.decode(Response.body);
+      } catch (e) {
+        login = "OUT";
       }
     } else {
       login = "OUT";
@@ -67,8 +69,7 @@ class JobJet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, Orientation, DeviceType) {
       return GetMaterialApp(
-    
-        home: (login == null )
+        home: (login == null)
             ? HomeScreen()
             : login == "IN"
                 ? (profileData != null &&

@@ -8,6 +8,9 @@ import 'package:http/http.dart';
 import 'package:jobjet/Screens/Views/Service/Controller.dart';
 import 'package:jobjet/main.dart';
 import 'package:jobjet/misc.dart';
+import 'package:jobjet/utlis/convertCurrency.dart';
+import 'package:lit_relative_date_time/controller/relative_date_format.dart';
+import 'package:lit_relative_date_time/model/relative_date_time.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:sizer/sizer.dart';
@@ -31,11 +34,39 @@ class _PlanCardScreenState extends State<PlanCardScreen> {
 
   bool loading = false;
   JobController ctrl = Get.put(JobController());
+  String releativeTime(String time, BuildContext context) {
+    DateTime otherTime = DateTime.parse(time);
+
+    if (otherTime.isAfter(DateTime.now())) {
+      RelativeDateTime _relativeDateTime =
+          RelativeDateTime(dateTime: DateTime.now(), other: otherTime);
+      RelativeDateFormat _relativeDateFormatter = RelativeDateFormat(
+        Localizations.localeOf(context),
+      );
+      return _relativeDateFormatter.format(_relativeDateTime);
+    }
+
+    return "0 Days";
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       onTap: () async {
-        if (!ctrl.checkInSubscription(widget.planData["id"])) {
+        if (releativeTime(ctrl.profileData["user_subscriptions"][0]["end_date"],
+                context) !=
+            "0 Days") {
+          showDialog(
+              context: context,
+              builder: (ctx) => Container(
+                  alignment: Alignment.center,
+                  child: Material(
+                      color: Colors.transparent,
+                      child: AlreadyPurchasedialog())));
+        } else if (!ctrl.checkInSubscription(widget.planData["id"])) {
           showDialog(
               context: context,
               builder: (ctx) => Container(
@@ -54,11 +85,13 @@ class _PlanCardScreenState extends State<PlanCardScreen> {
             Razorpay razorpay = Razorpay();
 
             var options = {
-              'key': 'rzp_test_5T0Juz5yCdvc5U',
+              'key': (true)
+                  ? "rzp_test_w2K3h5VhCWb5aq"
+                  : 'rzp_live_Krw5ZVvhAlE3Hs',
               'order_id': data["payment_gateway_order_id"],
               'prefill': {
                 'contact': ctrl.profileData["mobile"],
-                'email': ctrl.profileData["email"] ?? ""
+                'email': ctrl.profileData["email"] ?? "test@gmail.com"
               }
             };
 
@@ -70,50 +103,8 @@ class _PlanCardScreenState extends State<PlanCardScreen> {
             Navigator.pop(context);
           }
         } else {
-          Fluttertoast.showToast(msg: "Already Purchased");
+          Fluttertoast.showToast(msg: "This subscription is already added");
         }
-
-        // try {
-        //   var gpay = PaymentSheetGooglePay(
-        //     merchantCountryCode: "USA",
-        //     currencyCode: "USD",
-        //   );
-
-        //   await Stripe.instance.initPaymentSheet(
-        //       paymentSheetParameters: SetupPaymentSheetParameters(
-        //     paymentIntentClientSecret: data["message"]["client_secret"],
-        //     style: ThemeMode.light,
-        //     merchantDisplayName: data["full_name"] ?? "user",
-        //     googlePay: gpay,
-        //   ));
-        //   print(data);
-        //   await Stripe.instance.presentPaymentSheet();
-
-        //   Fluttertoast.showToast(msg: "Payment successful\nPlan activating");
-
-        //   final submit = await post(Uri.parse(baseUrl + "checkout/subscribe"),
-        //       headers: AuthHeader,
-        //       body: json.encode(
-        //           {"payment_intent_id": data["message"]["payment_intent"]}));
-        //   loading = false;
-        //   setState(() {});
-        //   print(Response.body);
-        //   print(Response.statusCode);
-        //   if (Response.statusCode == 200) {
-        //     Fluttertoast.showToast(msg: "Plan activated successfully ");
-        //     ctrl.fetchProfile();
-        //     setState(() {});
-        //   } else {
-        //     Fluttertoast.showToast(msg: "Plan activation Failed");
-        //   }
-        // } catch (e) {
-        //   Fluttertoast.showToast(msg: 'Please retry your payment failed');
-        //   setState(() {
-        //     loading = false;
-        //   });
-        //   print(e.toString());
-        // }
-        //}
       },
       child: Container(
         height: 12.35.h,
@@ -138,9 +129,9 @@ class _PlanCardScreenState extends State<PlanCardScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    '${double.parse(widget.planData["price"]).toInt()}\$/${widget.planData["interval"]}',
+                    '${convertCurrency()}${double.parse(widget.planData["price"]).toInt()} - ${widget.planData["interval"]}',
                     style: GoogleFonts.poppins(
-                      fontSize: 18.sp,
+                      fontSize: 17.sp,
                       fontWeight: FontWeight.w600,
                       color: Color.fromRGBO(0, 0, 0, 1),
                     ),
@@ -186,6 +177,146 @@ class _PlanCardScreenState extends State<PlanCardScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  AlreadyPurchasedialog() {
+    return Container(
+      width: 91.w,
+      height: 36.h,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.white),
+      child: Stack(
+        children: [
+          Positioned(
+            right: 10,
+            top: 10,
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: CircleAvatar(
+                  backgroundColor: Color(0xffE8ECFF), child: Icon(Icons.close)),
+            ),
+          ),
+          Positioned(
+              //  width: 27.w,
+              top: 3.7.h,
+              left: 31.57.w,
+              right: 31.57.w,
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Image.asset("assets/logout_pop.png"))),
+          Positioned(
+              left: 15,
+              right: 15,
+              top: 17.76.h,
+              child: Text(
+                "You are already subscribed to the basic plan. Do you want to proceed with the new plan?",
+                style: GoogleFonts.poppins(
+                    fontSize: 10.sp, fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center,
+              )),
+          Positioned(
+              left: 10,
+              right: 10,
+              top: 25.76.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () async {
+                      Navigator.of(context).pop();
+                      showDialog(
+                          context: context,
+                          builder: (ctx) => Container(
+                                alignment: Alignment.center,
+                                child: LoadingAnimationWidget.discreteCircle(
+                                    color: Color(0xff1F41BA), size: 30),
+                              ));
+                      final Response = await post(
+                          Uri.parse(
+                              baseUrl + "checkout/razorpay/order/generate"),
+                          headers: AuthHeader,
+                          body: json.encode(
+                              {"subscription_id": widget.planData["id"]}));
+                      print(ctrl.profileData);
+                      if (Response.statusCode == 200) {
+                        var data = json.decode(Response.body);
+
+                        Razorpay razorpay = Razorpay();
+
+                        var options = {
+                          'key': (true)
+                              ? "rzp_test_w2K3h5VhCWb5aq"
+                              : 'rzp_live_Krw5ZVvhAlE3Hs',
+                          'order_id': data["payment_gateway_order_id"],
+                          'prefill': {
+                            'contact': ctrl.profileData["mobile"],
+                            'email':
+                                ctrl.profileData["email"] ?? "test@gmail.com"
+                          }
+                        };
+
+                        razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                            _handlePaymentSuccess);
+                        razorpay.on(
+                            Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+                        razorpay.open(options);
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "Payment Failed, Contact admin");
+                        Navigator.pop(context);
+                      }
+                      // Navigator.pop(context);
+                      // SharedPreferences preferences =
+                      //     await SharedPreferences.getInstance();
+                      // preferences.setString("STATUS", "OUT");
+                      // Fluttertoast.showToast(msg: "Logout succesfully");
+                      // Get.offAll(LoginScreen(),
+                      //     transition: Transition.rightToLeft);
+                    },
+                    child: Container(
+                      width: 28.89.w,
+                      height: 5.7.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Color(0xff1F41BA))),
+                      child: Text(
+                        "Yes",
+                        style: GoogleFonts.poppins(
+                            fontSize: 12.sp, fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: 28.89.w,
+                      height: 5.7.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xff1F41BA),
+                          border: Border.all(color: Color(0xff1F41BA))),
+                      child: Text(
+                        "No",
+                        style: GoogleFonts.poppins(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ))
+        ],
       ),
     );
   }

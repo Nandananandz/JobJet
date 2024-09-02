@@ -57,7 +57,7 @@ class AuthenticationController extends GetxController {
       pref.setString("TOKEN", data["token"]);
       pref.setString("PHONE", phoneNumber);
       token = data["token"];
-      print(data);
+
       AuthHeader = {
         'Content-Type': 'application/json',
         "Authorization": "Bearer $token",

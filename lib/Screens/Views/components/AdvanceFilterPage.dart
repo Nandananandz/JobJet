@@ -108,6 +108,7 @@ class _AdvanceFilterPageState extends State<AdvanceFilterPage> {
                     _textbox(
                         'Sort By',
                         [
+                          "All Jobs",
                           "Today",
                           "Yesterday",
                           "Last week",
@@ -121,10 +122,9 @@ class _AdvanceFilterPageState extends State<AdvanceFilterPage> {
             )),
             InkWell(
               onTap: () {
-                ctrl.fetchSortJob();
                 if (ctrl.Tsort.text.isNotEmpty)
                   ctrl.selectedSort = ctrl.Tsort.text;
-
+                ctrl.fetchSortJob();
                 Get.back();
               },
               child: Container(

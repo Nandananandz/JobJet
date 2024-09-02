@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blur/blur.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailedPostView extends StatelessWidget {
+  bool isExpand = false;
   var jobData;
   DetailedPostView({super.key, required this.jobData});
   JobController ctrl = Get.put(JobController());
@@ -96,7 +98,7 @@ class DetailedPostView extends StatelessWidget {
                                       Text(
                                         'Posted on : ${ctrl.releativeTime(jobData["created_at"], context)}',
                                         style: GoogleFonts.nunitoSans(
-                                            fontSize: 10.sp,
+                                            fontSize: 9.sp,
                                             fontWeight: FontWeight.w700,
                                             color: Color.fromRGBO(0, 0, 0, 80)),
                                       ),
@@ -108,16 +110,48 @@ class DetailedPostView extends StatelessWidget {
                                         color: Color(0xFF1F41BA),
                                         size: 12,
                                       ),
-                                      Text(
-                                        ctrl.idToLocation(jobData["id"]) ??
-                                            "--:--",
-                                        style: GoogleFonts.nunitoSans(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: Color.fromRGBO(0, 0, 0, 80)),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          ctrl.idToLocation(
+                                                  jobData["location_id"]) ??
+                                              "--:--",
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.nunitoSans(
+                                              fontSize: 8.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 80)),
+                                        ),
                                       )
                                     ],
-                                  )
+                                  ),
+                                  Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color:
+                                            Color(0xff1F41BA).withOpacity(.05)),
+                                    child: Text(
+                                      jobData["status"]
+                                          .toString()
+                                          .capitalizeFirst
+                                          .toString(),
+                                      maxLines: 1,
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.nunitoSans(
+                                        fontSize: 8.sp,
+                                        color: Color(0xff04B900),
+                                        fontWeight: FontWeight.w700,
+                                        // color: Color.fromRGBO(0, 0, 0, 80
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -192,22 +226,82 @@ class DetailedPostView extends StatelessWidget {
                               color: Color.fromRGBO(0, 0, 0, 0.8)),
                         ),
                       ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 4.2.w,
+                          ),
+                          Icon(
+                            Icons.mail,
+                            size: 16,
+                            color: Colors.black54,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Blur(
+                            blur: 1.9,
+                            child: Text(jobData["email"] ?? "",
+                                style: GoogleFonts.nunitoSans(
+                                    fontSize: 10.sp,
+                                    decorationStyle: TextDecorationStyle.double,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(0, 0, 0, 0.8))),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Icon(
+                            Icons.phone_in_talk_outlined,
+                            size: 16,
+                            color: Colors.black54,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Blur(
+                            blur: 1.9,
+                            child: Text(jobData["phone"] ?? "",
+                                style: GoogleFonts.nunitoSans(
+                                    fontSize: 10.sp,
+                                    decorationStyle: TextDecorationStyle.double,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(0, 0, 0, 0.8))),
+                          ),
+                          SizedBox(
+                            width: 4.2.w,
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       if (jobData["image"] != null)
-                        CarouselSlider(
-                          options: CarouselOptions(
-                              viewportFraction: 1, autoPlay: true),
-                          items: [
-                            for (var data in jobData["image"])
-                              Container(
-                                height: 41.46.h,
-                                width: 99.27.w,
-                                child: Image.network(
-                                  data["original"],
-                                  fit: BoxFit.fill,
+                        if (jobData["image"].length > 1)
+                          CarouselSlider(
+                            options: CarouselOptions(
+                                viewportFraction: 1, autoPlay: true),
+                            items: [
+                              for (var data in jobData["image"])
+                                Container(
+                                  height: 41.46.h,
+                                  width: 100.w,
+                                  child: Image.network(
+                                    data["original"],
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
-                              ),
-                          ],
-                        ),
+                            ],
+                          )
+                        else
+                          Container(
+                            height: 30.46.h,
+                            width: 100.w,
+                            child: Image.network(
+                              jobData["image"][0]["original"],
+                              fit: BoxFit.fill,
+                            ),
+                          ),
                     ],
                   ),
                 ),
@@ -279,6 +373,7 @@ class DetailedPostView extends StatelessWidget {
                                             ),
                                             InkWell(
                                               onTap: () {
+                                                Get.back();
                                                 launchUrl(Uri.parse(
                                                     "mailto:${jobData["email"]}"));
                                               },
@@ -348,6 +443,7 @@ class DetailedPostView extends StatelessWidget {
                                             ),
                                             InkWell(
                                               onTap: () {
+                                                Get.back();
                                                 launchUrl(Uri.parse(
                                                     "tel:${jobData["phone"]}"));
                                               },

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blur/blur.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -14,16 +15,24 @@ import 'package:jobjet/misc.dart';
 import 'package:readmore/readmore.dart';
 import 'package:sizer/sizer.dart';
 
-class ViewDetailCard extends StatelessWidget {
+class ViewDetailCard extends StatefulWidget {
   var jobData;
   ViewDetailCard({super.key, required this.jobData});
+
+  @override
+  State<ViewDetailCard> createState() => _ViewDetailCardState();
+}
+
+class _ViewDetailCardState extends State<ViewDetailCard> {
   JobController ctrl = Get.put(JobController());
+  bool isExpand = false;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Get.to(() => DetailedPostView(
-              jobData: jobData,
+              jobData: widget.jobData,
             ));
       },
       child: Container(
@@ -42,14 +51,14 @@ class ViewDetailCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 4.2.w),
               child: Row(
                 children: [
-                  if (jobData["categories"] != null)
+                  if (widget.jobData["categories"] != null)
                     SizedBox(
                       height: 12.36.w,
                       width: 12.36.w,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: Image.network(
-                            jobData["categories"][0]["image"]["url"]),
+                            widget.jobData["categories"][0]["image"]["url"]),
                       ),
                     ),
                   SizedBox(
@@ -60,7 +69,7 @@ class ViewDetailCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          jobData["job_title"],
+                          widget.jobData["job_title"],
                           style: GoogleFonts.nunitoSans(
                             fontSize: 11.66.sp,
                             fontWeight: FontWeight.w700,
@@ -69,9 +78,9 @@ class ViewDetailCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'Posted on : ${ctrl.releativeTime(jobData["created_at"], context)}',
+                              'Posted on : ${ctrl.releativeTime(widget.jobData["created_at"], context)}',
                               style: GoogleFonts.nunitoSans(
-                                  fontSize: 10.sp,
+                                  fontSize: 9.sp,
                                   fontWeight: FontWeight.w700,
                                   color: Color.fromRGBO(0, 0, 0, 80)),
                             ),
@@ -81,47 +90,73 @@ class ViewDetailCard extends StatelessWidget {
                             Icon(
                               Icons.location_on_rounded,
                               color: Color(0xFF1F41BA),
-                              size: 12,
+                              size: 10,
                             ),
                             SizedBox(
                               width: 2,
                             ),
-                            Text(
-                              ctrl.idToLocation(jobData["location_id"]) ??
-                                  "--:--",
-                              style: GoogleFonts.nunitoSans(
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color.fromRGBO(0, 0, 0, 80)),
+                            Expanded(
+                              child: Text(
+                                ctrl.idToLocation(
+                                    widget.jobData["location_id"] ?? 0),
+                                maxLines: 1,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.nunitoSans(
+                                    fontSize: 9.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color.fromRGBO(0, 0, 0, 80)),
+                              ),
                             )
                           ],
-                        )
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0xff1F41BA).withOpacity(.05)),
+                          child: Text(
+                            widget.jobData["status"]
+                                .toString()
+                                .capitalizeFirst
+                                .toString(),
+                            maxLines: 1,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.nunitoSans(
+                              fontSize: 8.sp,
+                              color: Color(0xff04B900),
+                              fontWeight: FontWeight.w700,
+                              // color: Color.fromRGBO(0, 0, 0, 80
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   InkWell(
                     onTap: () async {
-                      String method = ctrl.checkInFavorite(jobData["id"])
+                      String method = ctrl.checkInFavorite(widget.jobData["id"])
                           ? "detach"
                           : "attach";
                       final Response = await post(
                           Uri.parse(baseUrl + "users/favourites/$method"),
                           headers: AuthHeader,
                           body: json.encode({
-                            "favourites": [jobData["id"]]
+                            "favourites": [widget.jobData["id"]]
                           }));
 
                       print(Response.body);
-                      print(ctrl.checkInFavorite(jobData["id"]));
+                      print(ctrl.checkInFavorite(widget.jobData["id"]));
                       print(Response.statusCode);
-                      if (!ctrl.checkInFavorite(jobData["id"])) {
-                        ctrl.profileData["favourites"].add(jobData);
+                      if (!ctrl.checkInFavorite(widget.jobData["id"])) {
+                        ctrl.profileData["favourites"].add(widget.jobData);
                         print(ctrl.profileData);
                       } else {
                         //
 
                         for (var data in ctrl.profileData["favourites"]) {
-                          if (data["id"] == jobData["id"]) {
+                          if (data["id"] == widget.jobData["id"]) {
                             ctrl.profileData["favourites"].remove(data);
                             break;
                           }
@@ -135,7 +170,7 @@ class ViewDetailCard extends StatelessWidget {
                       // }
                     },
                     child: Icon(
-                      (ctrl.checkInFavorite(jobData["id"]))
+                      (ctrl.checkInFavorite(widget.jobData["id"]))
                           ? Icons.favorite
                           : Icons.favorite_border_rounded,
                       color: Colors.orange,
@@ -148,8 +183,13 @@ class ViewDetailCard extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.2.w, vertical: 2.1.h),
               child: ReadMoreText(
-                jobData["content"] ?? "",
+                widget.jobData["content"] ?? "",
                 trimLines: 4,
+                callback: (val) {
+                  setState(() {
+                    isExpand = true;
+                  });
+                },
                 colorClickableText: Color(0xFF000000),
                 trimMode: TrimMode.Line,
                 trimCollapsedText: 'see more',
@@ -170,21 +210,83 @@ class ViewDetailCard extends StatelessWidget {
                     color: Color.fromRGBO(0, 0, 0, 0.8)),
               ),
             ),
-            if (jobData["image"] != null)
-              CarouselSlider(
-                options: CarouselOptions(viewportFraction: 1, autoPlay: true),
-                items: [
-                  for (var data in jobData["image"])
-                    Container(
-                      height: 41.46.h,
-                      width: 99.27.w,
-                      child: Image.network(
-                        data["original"],
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+            if (isExpand)
+              Row(
+                children: [
+                  SizedBox(
+                    width: 4.2.w,
+                  ),
+                  Icon(
+                    Icons.mail,
+                    size: 16,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Blur(
+                    blur: 2.5,
+                    child: Text(widget.jobData["email"] ?? "",
+                        style: GoogleFonts.nunitoSans(
+                            fontSize: 10.sp,
+                            decorationStyle: TextDecorationStyle.double,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromRGBO(0, 0, 0, 0.8))),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Icon(
+                    Icons.phone_in_talk_outlined,
+                    size: 16,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Blur(
+                    blur: 2.7,
+                    child: Text(widget.jobData["phone"] ?? "",
+                        style: GoogleFonts.nunitoSans(
+                            fontSize: 10.sp,
+                            decorationStyle: TextDecorationStyle.double,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromRGBO(0, 0, 0, 0.8))),
+                  ),
+                  SizedBox(
+                    width: 4.2.w,
+                  )
                 ],
               ),
+            if (isExpand)
+              SizedBox(
+                height: 10,
+              ),
+            if (widget.jobData["image"] != null)
+              if (widget.jobData["image"].length > 1)
+                CarouselSlider(
+                  options: CarouselOptions(viewportFraction: 1, autoPlay: true),
+                  items: [
+                    for (var data in widget.jobData["image"])
+                      Container(
+                        height: 41.46.h,
+                        width: 100.w,
+                        child: Image.network(
+                          data["original"],
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                  ],
+                )
+              else
+                Container(
+                  height: 30.46.h,
+                  width: 100.w,
+                  child: Image.network(
+                    widget.jobData["image"][0]["original"],
+                    fit: BoxFit.contain,
+                  ),
+                ),
           ],
         ),
       ),

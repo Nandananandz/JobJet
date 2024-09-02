@@ -11,8 +11,10 @@ import 'package:jobjet/Screens/Views/components/NotificationScreen.dart';
 import 'package:jobjet/Screens/Views/components/PrivacyPolicyScreen.dart';
 import 'package:jobjet/misc.dart';
 import 'package:jobjet/utlis/logoutPopUp.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 int selectedSideMenu = 0;
 
@@ -91,11 +93,12 @@ class SideBar extends StatelessWidget {
                   color: Color(0xff595F87),
                 ),
               ),
-              5,
+              6,
               selectedSideMenu),
           Expanded(child: Container()),
           InkWell(
-              onTap: () async {
+              onTap: () {
+                navigatorKey.currentState!.closeDrawer();
                 showDialog(
                     context: context,
                     builder: (ctx) => Container(
@@ -124,10 +127,14 @@ class SideBar extends StatelessWidget {
 
   _menuCard(String title, Widget prefix, int value, int current) {
     return InkWell(
-      onTap: () {
-        Get.back();
+      onTap: () async {
+        // Get.back();
+        navigatorKey.currentState!.closeDrawer();
         notifier.value++;
-
+        if (value == 6) {
+          launchUrl(Uri.parse("https://Wa.me/+971521815687"),
+              mode: LaunchMode.externalApplication);
+        }
         if (value == 4) selectedSideMenu = value;
         if (value == 3)
           Get.to(() => PrivacyPolicyScreen(),
@@ -136,7 +143,8 @@ class SideBar extends StatelessWidget {
           Get.to(() => NotificationScreen(),
               transition: Transition.rightToLeft);
         if (value == 5) {
-          selectedBottomindex = 4;
+          final result = await Share.share(
+              'Discover Opportunities at Your Fingertips  https://play.google.com/store/apps/details?id=com.nakkra.jobjet');
         }
       },
       child: Container(

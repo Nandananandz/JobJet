@@ -79,12 +79,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 width: 4.78.w,
               ),
               InkWell(
-                onTap: () {
-                  Get.to(() => NotificationScreen(),
-                      transition: Transition.rightToLeft);
-                },
-                child: myAppBarIcon( ctrl.notifications != null ? ctrl.notifications!.unReadCount ?? 0 : 0)
-              )
+                  onTap: () {
+                    Get.to(() => NotificationScreen(),
+                        transition: Transition.rightToLeft);
+                  },
+                  child: myAppBarIcon(ctrl.notifications != null
+                      ? ctrl.notifications!.unReadCount ?? 0
+                      : 0))
             ],
           ),
 
@@ -111,19 +112,25 @@ class _SearchScreenState extends State<SearchScreen> {
               DropdownButton(
                   value: ctrl.selectedSort,
                   underline: Container(),
-                  items:
-                      ["Today", "Yesterday", "Last week", "1 month", "2 months"]
-                          .map((e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(
-                                  e,
-                                  style: TextStyle(
-                                    fontSize: 10.0.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
+                  items: [
+                    "All Jobs",
+                    "Today",
+                    "Yesterday",
+                    "Last week",
+                    "1 month",
+                    "2 months"
+                  ]
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(
+                              e,
+                              style: TextStyle(
+                                fontSize: 10.0.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ))
+                      .toList(),
                   onChanged: (ValueKey) {
                     setState(() {
                       ctrl.selectedSort = ValueKey!;

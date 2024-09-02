@@ -8,7 +8,7 @@ import 'package:jobjet/main.dart';
 class planController extends GetxController {
   List PlanList = [];
   loadPlans() async {
-    final Response = await get(Uri.parse(baseUrl + "subscriptions/"));
+    final Response = await get(Uri.parse(baseUrl + "subscriptions?currency=${currencyCode}"));
 
     if (Response.statusCode == 200) {
       var js = json.decode(Response.body);

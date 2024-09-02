@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jobjet/Screens/Views/Service/Controller.dart';
+import 'package:jobjet/misc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class UserDetailScreen extends StatefulWidget {
@@ -106,8 +108,9 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                   ],
                   ctrl.experience),
               _textbox('Job Category', ctrl.jobCategory, ctrl.category),
-              _textfield('Current Job Tittle', ctrl.currentJobTitle),
-              _textfield('Resume Link', ctrl.Resume),
+              _textfield('Current Job Title', ctrl.currentJobTitle),
+              _textfield('Resume Link (Google Drive Link)', ctrl.Resume,
+                  maxlines: 2),
               SizedBox(height: 4.49.h),
               InkWell(
                 onTap: () {
@@ -121,7 +124,12 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                   ];
 
                   List<String> missingFields = getMissingFields(allControllers);
-                  if (missingFields.isEmpty) {
+
+                  final regex = RegExp(
+                      r'^(https?:\/\/)?([a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)+)([\/a-zA-Z0-9_\-.?&=]*)?$');
+                  if (!regex.hasMatch(ctrl.Resume.text)) {
+                    Fluttertoast.showToast(msg: "Please fill an valid link");
+                  } else if (missingFields.isEmpty) {
                     ctrl.updateProfile();
                   } else {
                     Fluttertoast.showToast(
@@ -136,13 +144,16 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                     color: Color(0xFF1F41BA),
                     borderRadius: BorderRadius.circular(5.61.h),
                   ),
-                  child: Text(
-                    'Submit your profile',
-                    style: GoogleFonts.poppins(
-                        fontSize: 11.66.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFFFFFFFF)),
-                  ),
+                  child: (ctrl.isProfileUpdateLoad)
+                      ? LoadingAnimationWidget.staggeredDotsWave(
+                          color: Colors.white, size: 24)
+                      : Text(
+                          'Submit your profile',
+                          style: GoogleFonts.poppins(
+                              fontSize: 11.66.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFFFFFFFF)),
+                        ),
                 ),
               )
             ],
@@ -152,7 +163,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
     );
   }
 
-  _textfield(String text, TextEditingController value) {
+  _textfield(String text, TextEditingController value, {int maxlines = 1}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -164,7 +175,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
         SizedBox(height: 0.89.h),
         Container(
           alignment: Alignment.centerLeft,
-          height: 4.94.h,
+          height: (maxlines != 1) ? null : 4.94.h,
           width: 84.78.w,
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xFFCBCBCB)),
@@ -172,12 +183,14 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
           ),
           child: TextFormField(
             controller: value,
+            maxLines: maxlines,
             decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding:
                     EdgeInsets.fromLTRB(2.89.w, 1.34.h, 2.89.w, 2.1.h)),
             style: GoogleFonts.poppins(
                 // color: Color(0xFF1F41BA),
+                color: Color(0xff1F41BA),
                 fontSize: 10.sp,
                 fontWeight: FontWeight.w600),
           ),
@@ -211,9 +224,19 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                 value: CurrentValue.text == "" ? null : CurrentValue.text,
                 isExpanded: true,
                 underline: Container(),
+                style: GoogleFonts.poppins(
+                    color: Color(0xff1F41BA),
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w600),
                 items: type
                     .map((e) => DropdownMenuItem<String>(
-                          child: Text(e),
+                          child: Text(
+                            e,
+                            style: GoogleFonts.poppins(
+                                color: Color(0xff1F41BA),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w600),
+                          ),
                           value: e,
                         ))
                     .toList(),
